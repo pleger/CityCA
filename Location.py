@@ -9,3 +9,6 @@ class Location(object):
     
     def __str__(self):
         return "r:"+repr(self.row)+",c:"+repr(self.column)
+
+    def __repr__(self):
+        return self.__str__()

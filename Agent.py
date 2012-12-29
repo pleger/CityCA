@@ -43,5 +43,6 @@ class Agent(object):
     
     def __repr__(self):
         return repr(self.row) + "," + repr(self.column)
-    
-        
+
+    def __repr__(self):
+        return self.__str__()

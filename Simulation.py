@@ -66,7 +66,7 @@ class Simulation(object):
             points.append([x,y])    
             colors.append(self.grid.getCell(y,x).countAgents())
         
-        if setup == False:
+        if not setup:
             return points, np.asanyarray(colors)
         else:
             return self.splitPoints(points), np.asanyarray(colors)

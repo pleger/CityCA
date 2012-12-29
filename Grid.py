@@ -153,3 +153,5 @@ class Grid(object):
         array = self.getMatrixOfPopulation()
         return repr(array)
 
+    def __repr__(self):
+        return self.__str__()

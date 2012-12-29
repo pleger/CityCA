@@ -1,7 +1,7 @@
-import numpy as np 
+from numpy import zeros, random, empty, ndarray
 from Agent import Agent
 from Cell import Cell
-import random
+import random as rn
 
 class Grid(object):
     
@@ -15,15 +15,15 @@ class Grid(object):
         self.rows = rows
         self.columns = columns
         
-        self.world = np.ndarray(shape=(rows,columns),dtype=Cell)
-        self.nextWorld = np.empty(shape=(rows,columns),dtype=Cell)
+        self.world = ndarray(shape=(rows,columns),dtype=Cell)
+        self.nextWorld = empty(shape=(rows,columns),dtype=Cell)
         self.clear()
          
     def createPopulation(self, number, radius, fitness = None):
 
         for i in range(number):
-            row = np.random.randint(self.rows)
-            column = np.random.randint(self.columns)
+            row = random.randint(self.rows)
+            column = random.randint(self.columns)
             self.addAgent(Agent(row,column,radius, fitness))
             
     def clear(self):
@@ -73,8 +73,8 @@ class Grid(object):
             finalRow = row + radius
             finalColumn = column + radius
          
-        rangeRow = random.sample(range(initialRow,finalRow + 1), finalRow - initialRow)
-        rangeCol = random.sample(range(initialColumn,finalColumn + 1), finalColumn - initialColumn)
+        rangeRow = rn.sample(range(initialRow,finalRow + 1), finalRow - initialRow)
+        rangeCol = rn.sample(range(initialColumn,finalColumn + 1), finalColumn - initialColumn)
 
         for r in rangeRow:
             if limitRow[0] <= r < limitRow[1]:
@@ -131,16 +131,25 @@ class Grid(object):
         return self.convergence
 
     def getMatrixOfPopulation(self):
-        array = np.zeros((self.rows,self.columns),dtype=int)
+        array = zeros((self.rows,self.columns),dtype=int)
         for r in range(self.rows):
             for c in range(self.columns):
                 array[r,c] = self.getCell(r,c).countAgents()
 
         return array
 
+    def getRankingOfPopulation(self):
+        population = []
+        for r in range(self.rows):
+            for c in range(self.columns):
+                cell = self.getCell(r,c)
+                if cell.countAgents() > 0:
+                    population.append(cell)
+
+        population.sort(reverse = True)
+        return population
 
     def __str__(self):
         array = self.getMatrixOfPopulation()
         return repr(array)
-    
- 
+

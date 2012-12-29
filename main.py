@@ -9,15 +9,13 @@ COLUMNS = 10
 ROWS = 10
 POPULATION = 30
 ITERATIONS = 40
-RADIUS = -1
+RADIUS = 2
 
-def randomFitness(self,cell, own = False):
-    return np.random.randint(20)
+if __name__ == "__main__":
+    grid = Grid(ROWS,COLUMNS)
+    grid.createPopulation(POPULATION,RADIUS)
 
-grid = Grid(ROWS,COLUMNS)
-grid.createPopulation(POPULATION,RADIUS,randomFitness)
-
-
-simulation = Simulation(grid)
-simulation.start(ITERATIONS)
-print grid   
+    simulation = Simulation(grid)
+    simulation.start(ITERATIONS)
+    rankings = grid.getRankingOfPopulation()
+    print rankings

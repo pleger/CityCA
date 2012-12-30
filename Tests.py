@@ -14,7 +14,7 @@ class TestFitness(unittest.TestCase):
 
     def setUp(self):
         self.grid = Grid(ROWS,COLUMNS)
-        self.simulation = Simulation(self.grid, animation = False)
+        self.simulation = Simulation(self.grid, False)
 
 
     def test_defaul(self):

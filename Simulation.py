@@ -9,7 +9,7 @@ class Simulation(object):
     INTERVAL = 1
     DEBUG_ITERATIONS = -1
     
-    def __init__(self,grid, animation = True):
+    def __init__(self,grid, animation):
         self.grid = grid
         self.fig, self.ax = plt.subplots(figsize=(15, 5))
 

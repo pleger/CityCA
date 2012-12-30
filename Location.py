@@ -1,9 +1,14 @@
+"""
+TODO: DESCRIPTION OF THIS CLASS
+"""
+
 class Location(object):
     
     def __init__(self,row,column):
         self.row = row
         self.column = column
-    
+
+    #FIX: Is it necessary this method?
     def __eq__(self, another):
         return self.row == another.row and self.column == another.column
     

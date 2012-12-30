@@ -15,7 +15,7 @@ if __name__ == "__main__":
     grid = Grid(ROWS,COLUMNS)
     grid.createPopulation(POPULATION,RADIUS)
 
-    simulation = Simulation(grid)
+    simulation = Simulation(grid, True)
     simulation.start(ITERATIONS)
     rankings = grid.getRankingOfPopulation()
     print rankings

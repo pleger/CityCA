@@ -1,5 +1,8 @@
 from Location import Location
 
+"""
+The objects of this class are cells of a grid. A cell contains agents and positive and/or negative externalities.
+"""
 
 class Cell(object):
     

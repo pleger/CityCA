@@ -1,7 +1,14 @@
+"""
+TODO: INSERT COMMENT OF THIS CLASS
+"""
+
+
 from numpy import zeros, random, empty, ndarray
 from Agent import Agent
 from Cell import Cell
 import random as rn
+
+
 
 class Grid(object):
     

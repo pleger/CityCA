@@ -6,15 +6,14 @@ import random as rn
 class Grid(object):
     
     def __init__(self,rows,columns):
-        self.agentTrack = []
-        self.nextAgentTrack = []
         self.reinit(rows,columns)
-        self.convergence = False
         
     def reinit(self,rows,columns):
         self.rows = rows
         self.columns = columns
-        
+        self.agentTrack = []
+        self.nextAgentTrack = []
+
         self.world = ndarray(shape=(rows,columns),dtype=Cell)
         self.nextWorld = empty(shape=(rows,columns),dtype=Cell)
         self.clear()
@@ -27,6 +26,7 @@ class Grid(object):
             self.addAgent(Agent(row,column,radius, fitness))
             
     def clear(self):
+        self.convergence = False
         self.agentTrack[:] = []
         for r in range(self.rows):
             for c in range(self.columns):
@@ -140,14 +140,14 @@ class Grid(object):
 
     def getRankingOfPopulation(self):
         population = []
+        count = len(self.getAgents())
         for r in range(self.rows):
             for c in range(self.columns):
                 cell = self.getCell(r,c)
                 if cell.countAgents() > 0:
                     population.append(cell)
 
-        population.sort(reverse = True)
-        return population
+        return sorted(population, key = lambda cell: cell.countAgents(), reverse = True)
 
     def __str__(self):
         array = self.getMatrixOfPopulation()

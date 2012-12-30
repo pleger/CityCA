@@ -6,7 +6,7 @@ class Cell(object):
     def __init__(self, row, column):
         self.location = Location(row,column)
         self.agents = []
-        self.externs = []
+        self.externalities = []
           
     def addAgent(self,agent):
         self.agents.append(agent)
@@ -16,9 +16,6 @@ class Cell(object):
     
     def countAgents(self):
         return len(self.agents)
-
-    def __eq__(self, other):
-        return self.countAgents() - other.countAgents()
 
     def __str__(self):
         return str(self.countAgents())

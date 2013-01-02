@@ -1,5 +1,5 @@
 """
-This script is used to execute the cellular automata
+This script is used to execute the cellular automaton Chile
 """
 
 __author__ = '''Paul Leger'''
@@ -24,3 +24,4 @@ if __name__ == "__main__":
     simulation.start(ITERATIONS)
     rankings = analyzer.getRankingOfPopulation()
     print rankings
+

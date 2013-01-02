@@ -15,6 +15,8 @@ class Simulation(object):
     DEBUG_ITERATIONS = -1
     
     def __init__(self,grid, animation):
+        """TODO: COMMENT METHOD
+        """
         self.grid = grid
         self.fig, self.ax = plt.subplots(figsize=(15, 5))
 
@@ -26,7 +28,9 @@ class Simulation(object):
     
     
     def setupPlot(self):
-        points,colors = self.convertToGraph(True)
+        """TODO: COMMENT METHOD
+        """
+        points,colors = self.__convertToGraph(True)
         population = len(self.grid.getAgents())
 
         self.scat = self.ax.scatter(points[0], points[1], c = colors, s = Simulation.SIZE_BALLS, vmin = 0, vmax = population)
@@ -35,9 +39,10 @@ class Simulation(object):
         plt.colorbar(self.scat)
 
     def start(self,iterations):
-        
+        """TODO: COMMENT METHOD
+        """
         if (self.animation):       
-            ani = animation.FuncAnimation(self.fig, self.animate, init_func=self.setupPlot, interval = Simulation.INTERVAL, 
+            ani = animation.FuncAnimation(self.fig, self.__animate, init_func=self.setupPlot, interval = Simulation.INTERVAL,
                                           frames = iterations, repeat = False, save_count = 2)       
                     
             plt.show()
@@ -49,17 +54,21 @@ class Simulation(object):
                 self.showConsoleInf(i)
                     
             
-    def animate(self,i):
+    def __animate(self,i):
+        """TODO: COMMENT METHOD
+        """
         self.grid.step()
         self.showConsoleInf(i)
     
-        points,colors = self.convertToGraph()
+        points,colors = self.__convertToGraph()
         self.scat.set_offsets(points)
         self.scat.set_array(colors)
         return self.scat,    
     
         
-    def convertToGraph(self, setup = False):
+    def __convertToGraph(self, setup = False):
+        """TODO: COMMENT METHOD
+        """
         agents = self.grid.getAgents()
         points = []
         colors = []
@@ -74,10 +83,12 @@ class Simulation(object):
         if not setup:
             return points, np.asanyarray(colors)
         else:
-            return self.splitPoints(points), np.asanyarray(colors)
+            return self.__splitPoints(points), np.asanyarray(colors)
         
         
-    def splitPoints(self,points):
+    def __splitPoints(self,points):
+        """TODO: COMMENT METHOD
+        """
         x = []
         y = []    
         for point in points:
@@ -87,6 +98,8 @@ class Simulation(object):
         return x,y
     
     def showConsoleInf(self,i):
+        """TODO: COMMENT METHOD
+        """
         text = ""
         if i % Simulation.DEBUG_ITERATIONS == 0 and Simulation.DEBUG_ITERATIONS != -1:
             text += "iter:" + repr(i) + " "

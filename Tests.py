@@ -28,7 +28,7 @@ class TestFitness(unittest.TestCase):
         self.grid.clear()
         self.grid.createPopulation(POPULATION,RADIUS)
         self.simulation.start(ITERATIONS)
-        self.assertTrue(self.grid.isConvergence(),"IT IS CONVERGENCE")
+        self.assertTrue(self.grid.convergence,"IT IS CONVERGENCE")
         array = self.grid.getMatrixOfPopulation()
         self.assertEqual(array.max(), len(self.grid.getAgents()), "ONE PLACE")
 
@@ -40,7 +40,7 @@ class TestFitness(unittest.TestCase):
         self.grid.clear()
         self.grid.createPopulation(POPULATION,RADIUS,randomFitness)
         self.simulation.start(ITERATIONS)
-        self.assertFalse(self.grid.isConvergence(),"IT IS CONVERGENCE")
+        self.assertFalse(self.grid.convergence,"IT IS CONVERGENCE")
 
 
 if __name__ == '__main__':

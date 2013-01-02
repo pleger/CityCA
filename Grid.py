@@ -13,9 +13,13 @@ import random as rn
 class Grid(object):
     
     def __init__(self, rows, columns):
+        """TODO: COMMENT METHOD
+        """
         self.reinit(rows, columns)
         
     def reinit(self,rows,columns):
+        """TODO: COMMENT METHOD
+        """
         self.rows = rows
         self.columns = columns
         self.agentTrack = []
@@ -26,12 +30,16 @@ class Grid(object):
         self.clear()
          
     def createPopulation(self, number, radius, fitness = None):
+        """TODO: COMMENT METHOD
+        """
         for i in range(number):
             row = random.randint(self.rows)
             column = random.randint(self.columns)
             self.addAgent(Agent(row,column,radius, fitness))
             
     def clear(self):
+        """TODO: COMMENT METHOD
+        """
         self.convergence = False
         self.agentTrack[:] = []
         for r in range(self.rows):
@@ -40,18 +48,24 @@ class Grid(object):
                 self.nextWorld[r,c] = Cell(r,c)
          
     def addAgent(self, agent):
+        """TODO: COMMENT METHOD
+        """
         loc = agent.location
         self.world[loc.row,loc.column].addAgent(agent)
         self.agentTrack.append(agent)
 
 
-    def clearNextWorld(self):
+    def __clearNextWorld(self):
+        """TODO: COMMENT METHOD
+        """
         for r in range(self.rows):
             for c in range(self.columns):
                 self.nextWorld[r,c] = Cell(r,c)
                 
     def getNeighbors(self,*args):
-              
+        """TODO: COMMENT METHOD
+        """
+        #TODO: IMPROVE IFs
         if len(args) == 2:
             row = args[0].row
             column = args[0].column
@@ -91,6 +105,8 @@ class Grid(object):
         return  neighbors
         
     def getCell(self,*args):
+        """TODO: COMMENT METHOD
+        """
         if len(args) == 1:
             return self.world[args[0].row,args[0].column] 
         
@@ -98,7 +114,9 @@ class Grid(object):
             return self.world[args[0],args[1]]     
                 
     #TODO: REMOVE            
-    def getAgents(self,*args):           
+    def getAgents(self,*args):
+        """TODO: COMMENT METHOD
+        """
         if len(args) == 0:
             return self.agentTrack
         
@@ -109,7 +127,9 @@ class Grid(object):
             return self.world[args[0],args[1]].getAgents()    
           
     def step(self):
-        self.clearNextWorld()
+        """TODO: COMMENT METHOD
+        """
+        self.__clearNextWorld()
         self.convergence = True
         
         for agent in self.getAgents():
@@ -123,9 +143,11 @@ class Grid(object):
             if loc.row != nextLoc.row or loc.column != nextLoc.column:
                 self.convergence = False
 
-        self.updateGrid()
+        self.__updateGrid()
 
-    def updateGrid(self):      
+    def __updateGrid(self):
+        """TODO: COMMENT METHOD
+        """
         for r in range(self.rows):
             for c in range(self.columns):
                 self.world[r,c] = self.nextWorld[r,c]
@@ -133,10 +155,9 @@ class Grid(object):
         for agent in self.agentTrack:
             agent.updateState()
 
-    def isConvergence(self):                 
-        return self.convergence
-
     def getMatrixOfPopulation(self):
+        """TODO: COMMENT METHOD
+        """
         array = zeros((self.rows,self.columns),dtype=int)
         for r in range(self.rows):
             for c in range(self.columns):
@@ -146,8 +167,12 @@ class Grid(object):
 
 
     def __str__(self):
+        """TODO: COMMENT METHOD
+        """
         array = self.getMatrixOfPopulation()
         return repr(array)
 
     def __repr__(self):
+        """TODO: COMMENT METHOD
+        """
         return self.__str__()

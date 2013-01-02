@@ -8,7 +8,6 @@ import unittest
 from Agent import Agent
 from Grid import Grid
 from Simulation import Simulation
-from numpy import random
 
 
 COLUMNS = 10

@@ -2,8 +2,6 @@
 This script is used to execute the cellular automaton Chile
 """
 
-__author__ = '''Paul Leger'''
-
 from Grid import Grid
 from Simulation import Simulation
 from Analyzer import Analyzer
@@ -15,13 +13,13 @@ POPULATION = 30
 ITERATIONS = 40
 RADIUS = 2
 
-if __name__ == "__main__":
-    grid = Grid(ROWS,COLUMNS)
-    analyzer = Analyzer(grid)
-    grid.createPopulation(POPULATION,RADIUS)
+#executing the main method of the code
+grid = Grid(ROWS,COLUMNS)
+analyzer = Analyzer(grid)
+grid.createPopulation(POPULATION,RADIUS)
 
-    simulation = Simulation(grid, True)
-    simulation.start(ITERATIONS)
-    rankings = analyzer.getRankingOfPopulation()
-    print rankings
+simulation = Simulation(grid, True)
+simulation.start(ITERATIONS)
+rankings = analyzer.getRankingOfPopulation()
+print rankings
 

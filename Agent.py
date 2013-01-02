@@ -3,32 +3,29 @@ This class represents agents inside of a cell (and obliviously inside of grid as
 """
 
 from Location import Location
+from numpy import random
 import types
 
 
 class Agent(object):    
-     
+    #TODO: FITNESS FUNCTIONS AS LIBRARY
     def __init__(self,row,column,radius, fitness = None):
         """TODO: COMMENT METHOD
         """
         self.location = Location(row,column) #TODO: It doesn't need an agent
         self.radius = radius
 
-        #Change the strategy
+        #Sets fitness functions
         if fitness:
             self.setFitness(fitness)
+        else:
+            self.setFitness(Agent.defaultFitness)
 
     def setFitness(self,fitness):
-        """TODO: COMMENT METHOD
+        """This method sets the default fitness behavior
          """
         self.getFitness = types.MethodType(fitness,self,Agent)
 
-    def getFitness(self,cell, own = False):
-        """TODO: COMMENT METHOD
-         """
-        n = cell.countAgents()
-        return (n + 1)  if not own else n         
-    
     def step(self,grid):
         """TODO: COMMENT METHOD
         """
@@ -56,8 +53,6 @@ class Agent(object):
         self.location.row = self.nextLocation.row
         self.location.column = self.nextLocation.column
 
-
-
     def __repr__(self):
         """TODO: COMMENT METHOD
         """
@@ -67,3 +62,15 @@ class Agent(object):
         """TODO: COMMENT METHOD
         """
         return self.__str__()
+
+    @staticmethod
+    def defaultFitness(self, cell, own = False):
+        """This method
+        """
+        n = cell.countAgents()
+        n = (n + 1)  if not own else n
+        return n
+
+    @staticmethod
+    def randomFitness(self,cell, own = False):
+        return random.randint(30)

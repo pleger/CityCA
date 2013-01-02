@@ -1,5 +1,5 @@
 """
-TODO: DESCRIPTION OF THIS CLASS
+This class represents a location inside of a grid (Maybe this class must be removed in the future)
 """
 
 class Location(object):

@@ -1,3 +1,9 @@
+"""
+This class is used to test the project. Apart from the class, this file contains a script to execute the project.
+This script should always be executed before to commit/push a change
+TODO: Add more tests
+"""
+
 
 import unittest
 from Grid import Grid
@@ -17,7 +23,7 @@ class TestFitness(unittest.TestCase):
         self.simulation = Simulation(self.grid, False)
 
 
-    def test_defaul(self):
+    def test_default(self):
         RADIUS = -1
         self.grid.clear()
         self.grid.createPopulation(POPULATION,RADIUS)

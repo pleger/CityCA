@@ -1,5 +1,5 @@
 """
-TODO: INSERT COMMENT OF THIS CLASS
+This class represents the grid of the cellular automata.
 """
 
 
@@ -12,8 +12,8 @@ import random as rn
 
 class Grid(object):
     
-    def __init__(self,rows,columns):
-        self.reinit(rows,columns)
+    def __init__(self, rows, columns):
+        self.reinit(rows, columns)
         
     def reinit(self,rows,columns):
         self.rows = rows
@@ -26,7 +26,6 @@ class Grid(object):
         self.clear()
          
     def createPopulation(self, number, radius, fitness = None):
-
         for i in range(number):
             row = random.randint(self.rows)
             column = random.randint(self.columns)
@@ -62,7 +61,7 @@ class Grid(object):
             column = args[1]
             radius = args[2]    
             
-        neibohrs = []
+        neighbors = []
         limitRow = [0,self.rows]
         limitColumn = [0,self.columns]
 
@@ -87,9 +86,9 @@ class Grid(object):
             if limitRow[0] <= r < limitRow[1]:
                 for c in rangeCol:
                     if  limitColumn[0] <= c < limitColumn[1] and r != row and c != column:
-                        neibohrs.append(self.getCell(r,c))
+                        neighbors.append(self.getCell(r,c))
         
-        return  neibohrs
+        return  neighbors
         
     def getCell(self,*args):
         if len(args) == 1:
@@ -145,16 +144,6 @@ class Grid(object):
 
         return array
 
-    def getRankingOfPopulation(self):
-        population = []
-        count = len(self.getAgents())
-        for r in range(self.rows):
-            for c in range(self.columns):
-                cell = self.getCell(r,c)
-                if cell.countAgents() > 0:
-                    population.append(cell)
-
-        return sorted(population, key = lambda cell: cell.countAgents(), reverse = True)
 
     def __str__(self):
         array = self.getMatrixOfPopulation()

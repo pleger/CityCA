@@ -1,5 +1,5 @@
 """
-This class represents agents inside of cell (and obliviously inside of grid as well)
+This class represents agents inside of a cell (and obliviously inside of grid as well)
 """
 
 from Location import Location

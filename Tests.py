@@ -25,7 +25,7 @@ class TestFitness(unittest.TestCase):
 
     def test_default(self):
         RADIUS = -1
-        self.grid.clear()
+        self.grid.__clear()
         self.grid.createPopulation(POPULATION,RADIUS)
         self.simulation.start(ITERATIONS)
         self.assertTrue(self.grid.convergence,"IT IS CONVERGENCE")
@@ -35,7 +35,7 @@ class TestFitness(unittest.TestCase):
     def test_random(self):
 
         RADIUS = -1
-        self.grid.clear()
+        self.grid.__clear()
         self.grid.createPopulation(POPULATION,RADIUS, Agent.randomFitness)
         self.simulation.start(ITERATIONS)
         self.assertFalse(self.grid.convergence,"IT IS CONVERGENCE")

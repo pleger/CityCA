@@ -1,5 +1,5 @@
 """
-This class carries out the simulation of the cellular automata
+This class carries out the simulation of the cellular automaton
 """
 
 
@@ -25,9 +25,31 @@ class Simulation(object):
         plt.ylabel("Longitude")
     
         self.animation = animation
-    
-    
-    def setupPlot(self):
+
+    def start(self,iterations):
+        """TODO: COMMENT METHOD
+        """
+        if self.animation:
+            ani = animation.FuncAnimation(self.fig, self.__animate, init_func=self.__setupPlot, interval = Simulation.INTERVAL,
+                frames = iterations, repeat = False, save_count = 2)
+
+            plt.show()
+
+        else:
+            for i in range(iterations):
+                self.grid.step()
+                self.showConsoleInf(i)
+
+    def showConsoleInf(self,i):
+        """TODO: COMMENT METHOD
+        """
+        text = ""
+        if i % Simulation.DEBUG_ITERATIONS == 0 and Simulation.DEBUG_ITERATIONS != -1:
+            text += "iter:" + repr(i) + " "
+            text += "conv:" + repr(self.grid.isConvergence()) + " "
+            print text
+
+    def __setupPlot(self):
         """TODO: COMMENT METHOD
         """
         points,colors = self.__convertToGraph(True)
@@ -38,21 +60,6 @@ class Simulation(object):
        
         plt.colorbar(self.scat)
 
-    def start(self,iterations):
-        """TODO: COMMENT METHOD
-        """
-        if (self.animation):       
-            ani = animation.FuncAnimation(self.fig, self.__animate, init_func=self.setupPlot, interval = Simulation.INTERVAL,
-                                          frames = iterations, repeat = False, save_count = 2)       
-                    
-            plt.show()
-            
-            
-        else:
-            for i in range(iterations):
-                self.grid.step()
-                self.showConsoleInf(i)
-                    
             
     def __animate(self,i):
         """TODO: COMMENT METHOD
@@ -96,15 +103,6 @@ class Simulation(object):
             x.append(point[1])        
         
         return x,y
-    
-    def showConsoleInf(self,i):
-        """TODO: COMMENT METHOD
-        """
-        text = ""
-        if i % Simulation.DEBUG_ITERATIONS == 0 and Simulation.DEBUG_ITERATIONS != -1:
-            text += "iter:" + repr(i) + " "
-            text += "conv:" + repr(self.grid.isConvergence()) + " "
-            print text   
         
         
         

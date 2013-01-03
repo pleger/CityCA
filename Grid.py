@@ -1,5 +1,5 @@
 """
-This class represents the grid of the cellular automata.
+This class represents the grid of the cellular automaton.
 """
 
 
@@ -27,7 +27,7 @@ class Grid(object):
 
         self.world = ndarray(shape=(rows,columns),dtype=Cell)
         self.nextWorld = empty(shape=(rows,columns),dtype=Cell)
-        self.clear()
+        self.__clear()
          
     def createPopulation(self, number, radius, fitness = None):
         """TODO: COMMENT METHOD
@@ -36,16 +36,7 @@ class Grid(object):
             row = random.randint(self.rows)
             column = random.randint(self.columns)
             self.addAgent(Agent(row,column,radius, fitness))
-            
-    def clear(self):
-        """TODO: COMMENT METHOD
-        """
-        self.convergence = False
-        self.agentTrack[:] = []
-        for r in range(self.rows):
-            for c in range(self.columns):
-                self.world[r,c] = Cell(r,c)
-                self.nextWorld[r,c] = Cell(r,c)
+
          
     def addAgent(self, agent):
         """TODO: COMMENT METHOD
@@ -54,13 +45,6 @@ class Grid(object):
         self.world[loc.row,loc.column].addAgent(agent)
         self.agentTrack.append(agent)
 
-
-    def __clearNextWorld(self):
-        """TODO: COMMENT METHOD
-        """
-        for r in range(self.rows):
-            for c in range(self.columns):
-                self.nextWorld[r,c] = Cell(r,c)
                 
     def getNeighbors(self,*args):
         """TODO: COMMENT METHOD
@@ -144,15 +128,6 @@ class Grid(object):
 
         self.__updateGrid()
 
-    def __updateGrid(self):
-        """TODO: COMMENT METHOD
-        """
-        for r in range(self.rows):
-            for c in range(self.columns):
-                self.world[r,c] = self.nextWorld[r,c]
-        
-        for agent in self.agentTrack:
-            agent.updateState()
 
     def getMatrixOfPopulation(self):
         """TODO: COMMENT METHOD
@@ -163,6 +138,33 @@ class Grid(object):
                 array[r,c] = self.getCell(r,c).countAgents()
 
         return array
+
+    def __updateGrid(self):
+        """TODO: COMMENT METHOD
+        """
+        for r in range(self.rows):
+            for c in range(self.columns):
+                self.world[r,c] = self.nextWorld[r,c]
+
+        for agent in self.agentTrack:
+            agent.updateState()
+
+    def __clearNextWorld(self):
+        """TODO: COMMENT METHOD
+        """
+        for r in range(self.rows):
+            for c in range(self.columns):
+                self.nextWorld[r,c] = Cell(r,c)
+
+    def __clear(self):
+        """TODO: COMMENT METHOD
+        """
+        self.convergence = False
+        self.agentTrack[:] = []
+        for r in range(self.rows):
+            for c in range(self.columns):
+                self.world[r,c] = Cell(r,c)
+                self.nextWorld[r,c] = Cell(r,c)
 
 
     def __str__(self):

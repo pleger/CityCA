@@ -10,7 +10,7 @@ import random as rn
 
 
 
-class Grid(object):
+class Automaton(object):
     
     def __init__(self, rows, columns):
         """TODO: COMMENT METHOD
@@ -25,8 +25,8 @@ class Grid(object):
         self.agentTrack = []
         self.nextAgentTrack = []
 
-        self.world = ndarray(shape=(rows,columns),dtype=Cell)
-        self.nextWorld = empty(shape=(rows,columns),dtype=Cell)
+        self.cellGrid = ndarray(shape=(rows,columns),dtype=Cell)
+        self.nextCellGrid = empty(shape=(rows,columns),dtype=Cell)
         self.__clear()
          
     def createPopulation(self, number, radius, fitness = None):
@@ -42,7 +42,7 @@ class Grid(object):
         """TODO: COMMENT METHOD
         """
         loc = agent.location
-        self.world[loc.row,loc.column].addAgent(agent)
+        self.cellGrid[loc.row,loc.column].addAgent(agent)
         self.agentTrack.append(agent)
 
                 
@@ -91,10 +91,10 @@ class Grid(object):
         """TODO: COMMENT METHOD
         """
         if len(args) == 1:
-            return self.world[args[0].row,args[0].column] 
+            return self.cellGrid[args[0].row,args[0].column]
         
         if len(args) == 2: 
-            return self.world[args[0],args[1]]     
+            return self.cellGrid[args[0],args[1]]
                 
     #TODO: REMOVE            
     def getAgents(self,*args):
@@ -104,10 +104,10 @@ class Grid(object):
             return self.agentTrack
         
         if len(args) == 1: 
-            return self.world[args[0].row,args[0].column].getAgents()
+            return self.cellGrid[args[0].row,args[0].column].getAgents()
        
         if len(args) == 2: 
-            return self.world[args[0],args[1]].getAgents()    
+            return self.cellGrid[args[0],args[1]].getAgents()
           
     def step(self):
         """TODO: COMMENT METHOD
@@ -121,7 +121,7 @@ class Grid(object):
             nextLoc = agent.nextLocation
                        
             nextLoc = agent.nextLocation
-            self.nextWorld[nextLoc.row,nextLoc.column].addAgent(agent)  
+            self.nextCellGrid[nextLoc.row,nextLoc.column].addAgent(agent)
         
             if loc.row != nextLoc.row or loc.column != nextLoc.column:
                 self.convergence = False
@@ -144,7 +144,7 @@ class Grid(object):
         """
         for r in range(self.rows):
             for c in range(self.columns):
-                self.world[r,c] = self.nextWorld[r,c]
+                self.cellGrid[r,c] = self.nextCellGrid[r,c]
 
         for agent in self.agentTrack:
             agent.updateState()
@@ -154,7 +154,7 @@ class Grid(object):
         """
         for r in range(self.rows):
             for c in range(self.columns):
-                self.nextWorld[r,c] = Cell(r,c)
+                self.nextCellGrid[r,c] = Cell(r,c)
 
     def __clear(self):
         """TODO: COMMENT METHOD
@@ -163,8 +163,8 @@ class Grid(object):
         self.agentTrack[:] = []
         for r in range(self.rows):
             for c in range(self.columns):
-                self.world[r,c] = Cell(r,c)
-                self.nextWorld[r,c] = Cell(r,c)
+                self.cellGrid[r,c] = Cell(r,c)
+                self.nextCellGrid[r,c] = Cell(r,c)
 
 
     def __str__(self):

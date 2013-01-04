@@ -2,7 +2,7 @@
 This script is used to execute the cellular automaton Chile
 """
 
-from Grid import Grid
+from Automaton import Automaton
 from Simulation import Simulation
 from Analyzer import Analyzer
 
@@ -14,7 +14,7 @@ ITERATIONS = 40
 RADIUS = 2
 
 #executing the main method of the code
-grid = Grid(ROWS,COLUMNS)
+grid = Automaton(ROWS,COLUMNS)
 analyzer = Analyzer(grid)
 grid.createPopulation(POPULATION,RADIUS)
 

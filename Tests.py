@@ -6,7 +6,7 @@ TODO: Add more tests
 
 import unittest
 from Agent import Agent
-from Grid import Grid
+from Automaton import Automaton
 from Simulation import Simulation
 
 
@@ -19,13 +19,13 @@ ITERATIONS = 40
 class TestFitness(unittest.TestCase):
 
     def setUp(self):
-        self.grid = Grid(ROWS,COLUMNS)
+        self.grid = Automaton(ROWS,COLUMNS)
         self.simulation = Simulation(self.grid, False)
 
 
     def test_default(self):
         RADIUS = -1
-        self.grid.__clear()
+        self.grid.reinit(ROWS,COLUMNS)
         self.grid.createPopulation(POPULATION,RADIUS)
         self.simulation.start(ITERATIONS)
         self.assertTrue(self.grid.convergence,"IT IS CONVERGENCE")
@@ -35,10 +35,10 @@ class TestFitness(unittest.TestCase):
     def test_random(self):
 
         RADIUS = -1
-        self.grid.__clear()
+        self.grid.reinit(ROWS,COLUMNS)
         self.grid.createPopulation(POPULATION,RADIUS, Agent.randomFitness)
         self.simulation.start(ITERATIONS)
-        self.assertFalse(self.grid.convergence,"IT IS CONVERGENCE")
+        self.assertFalse(self.grid.convergence,"IT IS NOT CONVERGENCE")
 
 
 if __name__ == '__main__':

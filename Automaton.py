@@ -7,6 +7,7 @@ from numpy import zeros, random, empty, ndarray
 from Agent import Agent
 from Cell import Cell
 import random as rn
+import math
 
 
 
@@ -22,8 +23,13 @@ class Automaton(object):
         """
         self.rows = rows
         self.columns = columns
+        self.rmin = 1
+        self.rmax = max(rows,columns)
+
         self.agentTrack = []
         self.nextAgentTrack = []
+
+
 
         self.cellGrid = ndarray(shape=(rows,columns),dtype=Cell)
         self.nextCellGrid = empty(shape=(rows,columns),dtype=Cell)

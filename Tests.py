@@ -19,25 +19,25 @@ ITERATIONS = 40
 class TestFitness(unittest.TestCase):
 
     def setUp(self):
-        self.grid = Automaton(ROWS,COLUMNS)
-        self.simulation = Simulation(self.grid, False)
+        self.automaton = Automaton(ROWS,COLUMNS)
+        self.simulation = Simulation(self.automaton, ITERATIONS, False)
 
 
     def test_default(self):
 
-        self.grid.reinit(ROWS,COLUMNS)
-        self.grid.createPopulation(POPULATION,Agent.infiniteRadium())
-        self.simulation.start(ITERATIONS)
-        self.assertTrue(self.grid.convergence,"IT IS CONVERGENCE")
-        array = self.grid.getMatrixOfPopulation()
-        self.assertEqual(array.max(), len(self.grid.getAgents()), "ONE PLACE")
+        self.automaton.reinit(ROWS,COLUMNS)
+        self.automaton.createPopulation(POPULATION,Agent.infiniteRadium())
+        self.simulation.start()
+        self.assertTrue(self.automaton.convergence,"IT IS CONVERGENCE")
+        array = self.automaton.getMatrixOfPopulation()
+        self.assertEqual(array.max(), len(self.automaton.getAgents()), "ONE PLACE")
 
     def test_random(self):
 
-        self.grid.reinit(ROWS,COLUMNS)
-        self.grid.createPopulation(POPULATION,Agent.infiniteRadium(), Agent.randomFitness)
-        self.simulation.start(ITERATIONS)
-        self.assertFalse(self.grid.convergence," IT IS NOT CONVERGENCE")
+        self.automaton.reinit(ROWS,COLUMNS)
+        self.automaton.createPopulation(POPULATION,Agent.infiniteRadium(), Agent.randomFitness)
+        self.simulation.start()
+        self.assertFalse(self.automaton.convergence," IT IS NOT CONVERGENCE")
 
 
 if __name__ == '__main__':

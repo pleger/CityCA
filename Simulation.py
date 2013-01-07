@@ -14,10 +14,10 @@ class Simulation(object):
     INTERVAL = 1
     DEBUG_ITERATIONS = -1
     
-    def __init__(self,grid, animation):
-        """TODO: COMMENT METHOD
-        """
-        self.grid = grid
+    def __init__(self,automaton, iterations, animation):
+        """TODO: COMMENT METHOD        """
+        self.iterations = iterations
+        self.automaton = automaton
         self.fig, self.ax = plt.subplots(figsize=(15, 5))
 
         plt.title("Simulation of New Net Logo")
@@ -26,37 +26,40 @@ class Simulation(object):
     
         self.animation = animation
 
-    def start(self,iterations):
+    def start(self):
         """TODO: COMMENT METHOD
         """
         if self.animation:
             ani = animation.FuncAnimation(self.fig, self.__animate, init_func=self.__setupPlot, interval = Simulation.INTERVAL,
-                frames = iterations, repeat = False, save_count = 2)
+                frames = self.iterations, repeat = False, save_count = 2)
 
             plt.show()
 
         else:
-            for i in range(iterations):
-                self.grid.step()
-                self.showConsoleInf(i)
+            for i in range(self.iterations):
+                self.automaton.step()
+                self.__showConsoleInf(i)
 
-    def showConsoleInf(self,i):
+    def __showConsoleInf(self,i):
         """TODO: COMMENT METHOD
         """
         text = ""
         if i % Simulation.DEBUG_ITERATIONS == 0 and Simulation.DEBUG_ITERATIONS != -1:
             text += "iter:" + repr(i) + " "
-            text += "conv:" + repr(self.grid.isConvergence()) + " "
+            text += "conv:" + repr(self.automaton.convergence) + " "
             print text
+
+        if i == self.iterations - 1:
+            print "END"
 
     def __setupPlot(self):
         """TODO: COMMENT METHOD
         """
         points,colors = self.__convertToGraph(True)
-        population = len(self.grid.getAgents())
+        population = len(self.automaton.getAgents())
 
         self.scat = self.ax.scatter(points[0], points[1], c = colors, s = Simulation.SIZE_BALLS, vmin = 0, vmax = population)
-        self.ax.axis([0, self.grid.columns - 1, 0, self.grid.rows - 1])
+        self.ax.axis([0, self.automaton.columns - 1, 0, self.automaton.rows - 1])
        
         plt.colorbar(self.scat)
 
@@ -64,8 +67,8 @@ class Simulation(object):
     def __animate(self,i):
         """TODO: COMMENT METHOD
         """
-        self.grid.step()
-        self.showConsoleInf(i)
+        self.automaton.step()
+        self.__showConsoleInf(i)
     
         points,colors = self.__convertToGraph()
         self.scat.set_offsets(points)
@@ -76,7 +79,7 @@ class Simulation(object):
     def __convertToGraph(self, setup = False):
         """TODO: COMMENT METHOD
         """
-        agents = self.grid.getAgents()
+        agents = self.automaton.getAgents()
         points = []
         colors = []
         
@@ -85,7 +88,7 @@ class Simulation(object):
             y = loc.row
             x = loc.column
             points.append([x,y])    
-            colors.append(self.grid.getCell(y,x).countAgents())
+            colors.append(self.automaton.getCell(y,x).countAgents())
         
         if not setup:
             return points, np.asanyarray(colors)

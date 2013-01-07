@@ -3,6 +3,7 @@ This (singleton) class is used to analyze grid. Concretely, the object of this c
 like the ranking of population
 """
 
+import math
 from scipy.stats.stats import linregress
 
 
@@ -22,14 +23,18 @@ class Analyzer(object):
         """
         self.grid = grid
 
-    def getLinearRegressionData(self):
+
+
+    def getLinearRegressionData(self, log):
         ranking = self.getRankingOfPopulation()
         x = []
         y = []
         c = 1
         for cell in ranking:
-            x.append(c)
-            y.append(cell.countAgents())
+            elx = c if not log else math.log10(c)
+            ely = cell.countAgents() if not log else math.log10(cell.countAgents())
+            x.append(elx)
+            y.append(ely)
             c += 1
 
         slope, intercept, r_value, p_value, std_err = linregress(x, y)

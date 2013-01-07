@@ -22,5 +22,5 @@ grid.createPopulation(POPULATION,Agent.randomUnifRangeRadium(1,5))
 simulation = Simulation(grid, ITERATIONS, True)
 simulation.start()
 rankings = analyzer.getRankingOfPopulation()
-print analyzer.getLinearRegressionData()
+print analyzer.getLinearRegressionData(False)
 

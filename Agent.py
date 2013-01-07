@@ -13,7 +13,7 @@ class Agent(object):
         """TODO: COMMENT METHOD
         """
         self.location = Location(row,column) #TODO: It doesn't need an agent
-        self.radius = radius
+        self.radius = radius()
 
         #Sets fitness functions
         if fitness:
@@ -56,7 +56,7 @@ class Agent(object):
     def __repr__(self):
         """TODO: COMMENT METHOD
         """
-        return repr(self.row) + "," + repr(self.column)
+        return repr(self.location.row) + "," + repr(self.location.column)
 
     def __repr__(self):
         """TODO: COMMENT METHOD
@@ -74,3 +74,30 @@ class Agent(object):
     @staticmethod
     def randomFitness(self,cell, own = False):
         return random.randint(30)
+
+    #Higher-function for radium
+    @staticmethod
+    def infiniteRadium():
+        def radium():
+            return -1
+        return radium
+
+    @staticmethod
+    def maxRadium(r):
+        def radium():
+            return r
+        return radium
+
+    @staticmethod
+    def randomUnifRangeRadium(rmin,rmax):
+        def radium():
+            return random.randint(rmin,rmax)
+        return radium
+
+    @staticmethod
+    def randomBetaRangeRadium(rmin,rmax):
+        def radium():
+            alpha = 0.5
+            beta = 0.2
+            return random.beta(alpha,beta)*(rmax - rmin) + rmin
+        return radium

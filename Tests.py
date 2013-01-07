@@ -37,7 +37,7 @@ class TestFitness(unittest.TestCase):
         self.grid.reinit(ROWS,COLUMNS)
         self.grid.createPopulation(POPULATION,Agent.infiniteRadium(), Agent.randomFitness)
         self.simulation.start(ITERATIONS)
-        self.assertFalse(self.grid.convergence,"IT IS NOT CONVERGENCE")
+        self.assertFalse(self.grid.convergence," IT IS NOT CONVERGENCE")
 
 
 if __name__ == '__main__':

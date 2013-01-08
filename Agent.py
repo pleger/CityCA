@@ -10,7 +10,7 @@ import types
 class Agent(object):    
     #TODO: FITNESS FUNCTIONS AS LIBRARY
     def __init__(self,row,column,radius, fitness = None):
-        """TODO: COMMENT METHOD
+        """This method sets the initial agents
         """
         self.location = Location(row,column) #TODO: It doesn't need an agent
         self.radius = radius()
@@ -27,12 +27,12 @@ class Agent(object):
         self.getFitness = types.MethodType(fitness,self,Agent)
 
     def step(self,grid):
-        """TODO: COMMENT METHOD
+        """This method set the next location of the agent as the best location
         """
         self.nextLocation = self.getBestLocation(grid)
   
     def getBestLocation(self,grid):
-        """TODO: COMMENT METHOD
+        """This method finds the best location to move the agent by using the fitness function
         """
         maxLoc = self.location
         maxFitness = self.getFitness(grid.getCell(maxLoc), own = True)
@@ -48,7 +48,7 @@ class Agent(object):
         return maxLoc
     
     def updateState(self):
-        """TODO: COMMENT METHOD
+        """This method updates the location of the agent
         """
         self.location.row = self.nextLocation.row
         self.location.column = self.nextLocation.column
@@ -65,7 +65,7 @@ class Agent(object):
 
     @staticmethod
     def defaultFitness(self, cell, own = False):
-        """This method
+        """This method return the numbers of agents of a cell
         """
         n = cell.countAgents()
         n = (n + 1)  if not own else n

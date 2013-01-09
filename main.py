@@ -12,15 +12,14 @@ COLUMNS = 30
 ROWS = 30
 POPULATION = 120
 ITERATIONS = 20
-Simulation.DEBUG_ITERATIONS = 5
 
 #executing the main method of the code
-grid = Automaton(ROWS,COLUMNS)
-analyzer = Analyzer(grid)
-grid.createPopulation(POPULATION,Agent.randomUnifRangeRadium(1,5))
+automaton = Automaton(ROWS,COLUMNS)
+analyzer = Analyzer(automaton)
+automaton.createPopulation(POPULATION,Agent.randomRangeRadiumUnif(1,5))
 
-simulation = Simulation(grid, ITERATIONS, True)
-simulation.start()
+simulation = Simulation(automaton, True)
+simulation.start(ITERATIONS)
 rankings = analyzer.getRankingOfPopulation()
 print analyzer.getLinearRegressionData(False)
 

@@ -20,14 +20,14 @@ class TestFitness(unittest.TestCase):
 
     def setUp(self):
         self.automaton = Automaton(ROWS,COLUMNS)
-        self.simulation = Simulation(self.automaton, ITERATIONS, False)
+        self.simulation = Simulation(self.automaton, False)
 
 
     def test_default(self):
 
         self.automaton.reinit(ROWS,COLUMNS)
         self.automaton.createPopulation(POPULATION,Agent.infiniteRadium())
-        self.simulation.start()
+        self.simulation.start(ITERATIONS)
         self.assertTrue(self.automaton.convergence,"IT IS CONVERGENCE")
         array = self.automaton.getMatrixOfPopulation()
         self.assertEqual(array.max(), len(self.automaton.getAgents()), "ONE PLACE")
@@ -36,7 +36,7 @@ class TestFitness(unittest.TestCase):
 
         self.automaton.reinit(ROWS,COLUMNS)
         self.automaton.createPopulation(POPULATION,Agent.infiniteRadium(), Agent.randomFitness)
-        self.simulation.start()
+        self.simulation.start(ITERATIONS)
         self.assertFalse(self.automaton.convergence," IT IS NOT CONVERGENCE")
 
 

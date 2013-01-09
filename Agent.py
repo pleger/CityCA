@@ -89,15 +89,21 @@ class Agent(object):
         return radium
 
     @staticmethod
-    def randomUnifRangeRadium(rmin,rmax):
+    def randomRangeRadiumUnif(rmin,rmax):
         def radium():
             return random.randint(rmin,rmax)
         return radium
 
     @staticmethod
-    def randomBetaRangeRadium(rmin,rmax):
+    def randomRangeRadiumBeta(rmin,rmax):
         def radium():
             alpha = 0.5
             beta = 0.2
-            return random.beta(alpha,beta)*(rmax - rmin) + rmin
+            return int(random.beta(alpha,beta)*(rmax - rmin) + rmin)
+        return radium
+
+    @staticmethod
+    def randomRangeRadiumNormal(rmin,rmax):
+        def radium():
+            return int(random.normal()*(rmax - rmin) + rmin)
         return radium

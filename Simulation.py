@@ -9,28 +9,33 @@ import matplotlib.animation as animation
 
 
 class Simulation(object):
-    
-    SIZE_BALLS = 100
-    INTERVAL = 1
-    DEBUG_ITERATIONS = -1
-    
-    def __init__(self,automaton, iterations, animation):
-        """TODO: COMMENT METHOD        """
-        self.iterations = iterations
-        self.automaton = automaton
-        self.fig, self.ax = plt.subplots(figsize=(15, 5))
 
-        plt.title("Simulation of New Net Logo")
-        plt.xlabel("Latitude")
-        plt.ylabel("Longitude")
     
+    def __init__(self, automaton, animation):
+        """TODO: COMMENT METHOD        """
+
+        self.SIZE_BALLS = 100
+        self.INTERVAL = 1
+        self.DEBUG_ITERATIONS = -1
+
+        self.automaton = automaton
         self.animation = animation
 
-    def start(self):
+        if self.animation:
+            self.fig, self.ax = plt.subplots(figsize=(15, 5))
+            plt.title("Simulation of New Net Logo")
+            plt.xlabel("Latitude")
+            plt.ylabel("Longitude")
+
+
+    def start(self, iterations):
         """TODO: COMMENT METHOD
         """
+
+        self.iterations = iterations
+
         if self.animation:
-            ani = animation.FuncAnimation(self.fig, self.__animate, init_func=self.__setupPlot, interval = Simulation.INTERVAL,
+            ani = animation.FuncAnimation(self.fig, self.__animate, init_func=self.__setupPlot, interval = self.INTERVAL,
                 frames = self.iterations, repeat = False, save_count = 2)
 
             plt.show()
@@ -43,14 +48,16 @@ class Simulation(object):
     def __showConsoleInf(self,i):
         """TODO: COMMENT METHOD
         """
-        text = ""
-        if i % Simulation.DEBUG_ITERATIONS == 0 and Simulation.DEBUG_ITERATIONS != -1:
-            text += "iter:" + repr(i) + " "
-            text += "conv:" + repr(self.automaton.convergence) + " "
-            print text
 
-        if i == self.iterations - 1:
-            print "END"
+        if not self.DEBUG_ITERATIONS == -1:
+            text = ""
+            if i % self.DEBUG_ITERATIONS == 0:
+                text += "iter:" + repr(i) + " "
+                text += "conv:" + repr(self.automaton.convergence) + " "
+                print text
+
+            if i == self.iterations - 1:
+                print "END"
 
     def __setupPlot(self):
         """TODO: COMMENT METHOD
@@ -58,7 +65,7 @@ class Simulation(object):
         points,colors = self.__convertToGraph(True)
         population = len(self.automaton.getAgents())
 
-        self.scat = self.ax.scatter(points[0], points[1], c = colors, s = Simulation.SIZE_BALLS, vmin = 0, vmax = population)
+        self.scat = self.ax.scatter(points[0], points[1], c = colors, s = self.SIZE_BALLS, vmin = 0, vmax = population)
         self.ax.axis([0, self.automaton.columns - 1, 0, self.automaton.rows - 1])
        
         plt.colorbar(self.scat)

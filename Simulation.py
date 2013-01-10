@@ -61,7 +61,7 @@ class Simulation(object):
                 print "END"
 
     def __setupPlot(self):
-        """This method
+        """TODO: COMMENT METHOD
         """
         points,colors = self.__convertToGraph(True)
         population = len(self.automaton.getAgents())

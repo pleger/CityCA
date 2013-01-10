@@ -12,7 +12,8 @@ class Simulation(object):
 
     
     def __init__(self, automaton, animation):
-        """TODO: COMMENT METHOD        """
+        """This method sets the initial patterns to start the simulation
+        """
 
         self.SIZE_BALLS = 100
         self.INTERVAL = 1
@@ -29,7 +30,7 @@ class Simulation(object):
 
 
     def start(self, iterations):
-        """TODO: COMMENT METHOD
+        """This method starts the simulation
         """
 
         self.iterations = iterations
@@ -46,7 +47,7 @@ class Simulation(object):
                 self.__showConsoleInf(i)
 
     def __showConsoleInf(self,i):
-        """TODO: COMMENT METHOD
+        """This method shows the information of the console: iterations, convergence (true or false) and end
         """
 
         if not self.DEBUG_ITERATIONS == -1:
@@ -60,7 +61,7 @@ class Simulation(object):
                 print "END"
 
     def __setupPlot(self):
-        """TODO: COMMENT METHOD
+        """This method
         """
         points,colors = self.__convertToGraph(True)
         population = len(self.automaton.getAgents())

@@ -19,7 +19,7 @@ class Analyzer(object):
         return cls._instance
 
     def __init__(self, grid):
-        """This method sets the initial
+        """This method sets the initial grid
         """
         self.grid = grid
 
@@ -43,7 +43,7 @@ class Analyzer(object):
 
 
     def getRankingOfPopulation(self):
-        """This method returns the population of a cell
+        """This method returns the ranking of population of each cell
         """
         population = []
         for r in range(self.grid.rows):

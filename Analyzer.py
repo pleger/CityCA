@@ -11,7 +11,7 @@ class Analyzer(object):
     _instance = None  #only instance of this class
 
     def __new__(cls, *args, **kwargs):
-        """TODO: COMMENT METHOD
+        """This method
         """
         if not cls._instance:
             cls._instance = super(Analyzer, cls).__new__(
@@ -19,7 +19,7 @@ class Analyzer(object):
         return cls._instance
 
     def __init__(self, grid):
-        """TODO: COMMENT METHOD
+        """This method sets the initial
         """
         self.grid = grid
 
@@ -43,7 +43,7 @@ class Analyzer(object):
 
 
     def getRankingOfPopulation(self):
-        """TODO: COMMENT METHOD
+        """This method returns the population of a cell
         """
         population = []
         for r in range(self.grid.rows):

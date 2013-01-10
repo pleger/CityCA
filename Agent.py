@@ -27,7 +27,7 @@ class Agent(object):
         self.getFitness = types.MethodType(fitness,self,Agent)
 
     def step(self,grid):
-        """This method set the next location of the agent as the best location
+        """This method sets the next location of the agent as the best location
         """
         self.nextLocation = self.getBestLocation(grid)
   
@@ -54,18 +54,18 @@ class Agent(object):
         self.location.column = self.nextLocation.column
 
     def __repr__(self):
-        """TODO: COMMENT METHOD
+        """This method returns the present location of the agent
         """
         return repr(self.location.row) + "," + repr(self.location.column)
 
     def __repr__(self):
-        """TODO: COMMENT METHOD
+        """This method returns...
         """
         return self.__str__()
 
     @staticmethod
     def defaultFitness(self, cell, own = False):
-        """This method return the numbers of agents of a cell
+        """This method returns the numbers of agents of a cell
         """
         n = cell.countAgents()
         n = (n + 1)  if not own else n

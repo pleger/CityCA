@@ -2,10 +2,6 @@
 This (singleton) class is used to analyze grid. Concretely, the object of this class allows developers to get results
 like the ranking of population
 """
-import socket
-import matplotlib
-if socket.gethostname() == "duck": # To work in "duck" server
-    matplotlib.use("Agg")
 
 import math
 from scipy.stats.stats import linregress

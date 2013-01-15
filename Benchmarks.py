@@ -1,3 +1,9 @@
+import socket
+import matplotlib
+if socket.gethostname() == "duck": # To work in "duck" server
+    matplotlib.use("Agg")
+
+
 from Automaton import Automaton
 from Simulation import Simulation
 from Analyzer import Analyzer

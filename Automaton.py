@@ -14,12 +14,12 @@ import math
 class Automaton(object):
     
     def __init__(self, rows, columns):
-        """TODO: COMMENT METHOD
+        """This method resets the rows and columns of the grid
         """
         self.reinit(rows, columns)
         
     def reinit(self,rows,columns):
-        """TODO: COMMENT METHOD
+        """This method sets the rows and columns as default
         """
         self.rows = rows
         self.columns = columns
@@ -36,7 +36,7 @@ class Automaton(object):
         self.__clear()
          
     def createPopulation(self, number, radius, fitness = None):
-        """TODO: COMMENT METHOD
+        """This method creates the agents and put them in the grid
         """
         for i in range(number):
             row = random.randint(self.rows)
@@ -45,7 +45,7 @@ class Automaton(object):
 
          
     def addAgent(self, agent):
-        """TODO: COMMENT METHOD
+        """This method adds a location to the agents
         """
         loc = agent.location
         self.cellGrid[loc.row,loc.column].addAgent(agent)
@@ -53,7 +53,7 @@ class Automaton(object):
 
                 
     def getNeighbors(self,*args):
-        """TODO: COMMENT METHOD
+        """This method gets the numbers of the neighbors (It depends of the radius)
         """
         #TODO: IMPROVE IFs
         if len(args) == 2:
@@ -94,7 +94,7 @@ class Automaton(object):
         return  neighbors
         
     def getCell(self,*args):
-        """TODO: COMMENT METHOD
+        """This method
         """
         if len(args) == 1:
             return self.cellGrid[args[0].row,args[0].column]
@@ -104,7 +104,7 @@ class Automaton(object):
                 
     #TODO: REMOVE            
     def getAgents(self,*args):
-        """TODO: COMMENT METHOD
+        """This method gets the
         """
         if len(args) == 0:
             return self.agentTrack
@@ -116,7 +116,7 @@ class Automaton(object):
             return self.cellGrid[args[0],args[1]].getAgents()
           
     def step(self):
-        """TODO: COMMENT METHOD
+        """This method updates the grid to the next step
         """
         self.__clearNextWorld()
         self.convergence = True
@@ -136,7 +136,7 @@ class Automaton(object):
 
 
     def getMatrixOfPopulation(self):
-        """TODO: COMMENT METHOD
+        """This method gets the array of population of the grid
         """
         array = zeros((self.rows,self.columns),dtype=int)
         for r in range(self.rows):
@@ -146,7 +146,7 @@ class Automaton(object):
         return array
 
     def __updateGrid(self):
-        """TODO: COMMENT METHOD
+        """This method
         """
         for r in range(self.rows):
             for c in range(self.columns):
@@ -156,14 +156,14 @@ class Automaton(object):
             agent.updateState()
 
     def __clearNextWorld(self):
-        """TODO: COMMENT METHOD
+        """This method clears the next grid state.
         """
         for r in range(self.rows):
             for c in range(self.columns):
                 self.nextCellGrid[r,c] = Cell(r,c)
 
     def __clear(self):
-        """TODO: COMMENT METHOD
+        """This method
         """
         self.convergence = False
         self.agentTrack[:] = []
@@ -174,12 +174,12 @@ class Automaton(object):
 
 
     def __str__(self):
-        """TODO: COMMENT METHOD
+        """This method
         """
         array = self.getMatrixOfPopulation()
         return repr(array)
 
     def __repr__(self):
-        """TODO: COMMENT METHOD
+        """This method
         """
         return self.__str__()

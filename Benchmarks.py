@@ -39,6 +39,7 @@ class Benchmarks(object):
 
         counter = 0
         for exp in self.exps:
+            counter +=  1
             arr = []
             self.run = types.MethodType(exp,self,Benchmarks)
             arr.append(repr(self.automaton.rows)+"x"+repr(self.automaton.columns))
@@ -65,7 +66,7 @@ class Benchmarks(object):
     def generateReport(self):
         now = datetime.datetime.now()
         f = open("report-"+now.__str__()+".csv",'w')
-        text = "Z\trmin\trmax\tIte\tb\tconst"
+        text = "Z\trmin\trmax\tIte\tslope\tintercept"
         f.write(text+"\n")
 
         for result in self.results:
@@ -107,7 +108,7 @@ if __name__ == '__main__':
     bench.addExp(exp3)
     bench.addExp(exp4)
 
-    bench.setRepeat(3)
+    bench.setRepeat(1)
     print "BEGIN BENCH"
     bench.run()
     print "END BENCH"

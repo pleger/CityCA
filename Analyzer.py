@@ -21,8 +21,6 @@ class Analyzer(object):
         return cls._instance
 
     def __init__(self, automaton):
-        """TODO: COMMENT METHOD
-    def __init__(self, grid):
         """This method sets the initial grid
         """
         self.automaton = automaton

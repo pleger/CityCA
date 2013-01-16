@@ -69,6 +69,7 @@ class Automaton(object):
         limitRow = [0,self.rows]
         limitColumn = [0,self.columns]
 
+        #todo improve this code
         if radius == -1:
             initialRow = limitRow[0]
             initialColumn = limitRow[0]
@@ -76,7 +77,6 @@ class Automaton(object):
             finalRow = limitRow[1]
             finalColumn = limitColumn[1]
         else:
-            deltaRow = row - radius
             initialRow = row - radius
             initialColumn = column - radius
 

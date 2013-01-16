@@ -26,8 +26,8 @@ class Benchmarks(object):
         self.directory = "exps"
         self.log = False
 
-    def addExp(self,exp):
-        self.exps.append(exp)
+    def addExp(self,exp, name):
+        self.exps.append([name,exp])
 
     def setRepeat(self,repeat):
         self.repeat = repeat
@@ -45,9 +45,11 @@ class Benchmarks(object):
 
         counter = 0
         for exp in self.exps:
+            experiment = exp[1]
+            name = exp[0]
             counter +=  1
             arr = []
-            self.run = types.MethodType(exp,self,Benchmarks)
+            self.run = types.MethodType(experiment,self,Benchmarks)
             arr.append(repr(self.automaton.rows)+"x"+repr(self.automaton.columns))
             arr.append(repr(self.automaton.rmin))
             arr.append(repr(self.automaton.rmax))
@@ -55,7 +57,7 @@ class Benchmarks(object):
             result = [0,0,0]
             for r in range(self.repeat):
                 self.run()
-                self.analyzer.createLinearRegressionGraph(self.log, save = True, prefixNameFile = "figure-"+arr.__str__())
+                self.analyzer.createLinearRegressionGraph(self.log, save = True, prefixNameFile = "figure-"+name+"-"+arr.__str__())
                 result = [(x + y) for x, y  in zip(result, self.analyzer.getLinearRegressionData(self.log))]
 
             result = [x/self.repeat for x in result]
@@ -64,7 +66,7 @@ class Benchmarks(object):
             arr += result
             self.results.append(arr)
 
-            print "Finished "+str(counter)+ "/" + str(len(self.exps))
+            print "Finished name:"+name+" ("+str(counter)+ "/" + str(len(self.exps))+")"
 
 
         self.generateReport()
@@ -88,7 +90,7 @@ if __name__ == '__main__':
 
     def exp1(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(12000, Agent.maxRadium(5))
+        self.automaton.createPopulation(12000, Agent.constRadium(5))
         self.simulation.start(30)
 
     def exp2(self):
@@ -117,12 +119,13 @@ if __name__ == '__main__':
         self.automaton.createPopulation(12000, Agent.randomRangeRadiumNormal(rmin,rmax))
         self.simulation.start(30)
 
-    bench.addExp(exp1)
-    bench.addExp(exp2)
-    bench.addExp(exp3)
-    bench.addExp(exp4)
-    bench.addExp(exp5)
+    bench.addExp(exp1,"fixRadium")
+    bench.addExp(exp2,"normRadium5-7")
+    bench.addExp(exp3,"unifRadium1,8")
+    bench.addExp(exp4,"unifRadium-min-max")
+    bench.addExp(exp5,"normalRadium-min-max")
 
+    bench.setScaleLog(True)
     bench.setRepeat(1)
     print "BEGIN BENCH"
     bench.run()

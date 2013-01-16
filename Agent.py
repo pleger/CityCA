@@ -83,7 +83,7 @@ class Agent(object):
         return radium
 
     @staticmethod
-    def maxRadium(r):
+    def constRadium(r):
         def radium():
             return r
         return radium

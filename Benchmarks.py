@@ -127,6 +127,8 @@ if __name__ == '__main__':
     print "BEGIN BENCH"
     bench.run()
     print "END BENCH"
+
+    # To work with mail, it is necessary to config sendmail
     os.system("echo 'Available results :D' | mail -s 'ChileCA Available' pleger@gmail.com")
 
 

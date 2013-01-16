@@ -92,10 +92,7 @@ class Benchmarks(object):
         f.close()
 
 if __name__ == '__main__':
-    if sys.argv[0]:
-        POPULATION = sys.argv[0]
-    else:
-        POPULATION = 12000
+    POPULATION = 12000
 
     automaton = Automaton(1,1) # stupid values
     bench = Benchmarks(automaton)
@@ -146,7 +143,7 @@ if __name__ == '__main__':
     fileNameZip = "exp-"+bench.now()+".zip"
     os.system("zip -r "+fileNameZip+" exps")
     # To work with mail, it is necessary to config sendmail
-    #os.system("echo 'Available results: http://pleger.cl/ChileCA/"+fileNameZip+"' | mail -s 'ChileCA Results Available' pleger@gmail.com")
+    os.system("echo 'Available results: http://pleger.cl/ChileCA/"+fileNameZip+"' | mail -s 'ChileCA Results Available' pleger@gmail.com")
 
 
 

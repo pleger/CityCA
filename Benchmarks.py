@@ -74,6 +74,10 @@ class Benchmarks(object):
 
         self.generateReport()
 
+    def now(self):
+        now = datetime.datetime.now()
+        return now.__str__()
+
     def generateReport(self):
         now = datetime.datetime.now()
         f = open("report-"+now.__str__()+".csv",'w')
@@ -93,17 +97,17 @@ if __name__ == '__main__':
 
     def exp1(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(12000, Agent.constRadium(5))
+        self.automaton.createPopulation(120, Agent.constRadium(5))
         self.simulation.start(30)
 
     def exp2(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(12000, Agent.randomRangeRadiumNormal(5,7))
+        self.automaton.createPopulation(120, Agent.randomRangeRadiumNormal(5,7))
         self.simulation.start(30)
 
     def exp3(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(12000, Agent.randomRangeRadiumUnif(1,8))
+        self.automaton.createPopulation(120, Agent.randomRangeRadiumUnif(1,8))
         self.simulation.start(30)
 
     def exp4(self):
@@ -111,7 +115,7 @@ if __name__ == '__main__':
         rmin = self.automaton.rmin
         rmax = self.automaton.rmax
 
-        self.automaton.createPopulation(12000, Agent.randomRangeRadiumUnif(rmin,rmax))
+        self.automaton.createPopulation(120, Agent.randomRangeRadiumUnif(rmin,rmax))
         self.simulation.start(30)
 
     def exp5(self):
@@ -119,7 +123,7 @@ if __name__ == '__main__':
         rmin = self.automaton.rmin
         rmax = self.automaton.rmax
 
-        self.automaton.createPopulation(12000, Agent.randomRangeRadiumNormal(rmin,rmax))
+        self.automaton.createPopulation(120, Agent.randomRangeRadiumNormal(rmin,rmax))
         self.simulation.start(30)
 
     bench.addExp(exp1,"constRadium")
@@ -134,8 +138,10 @@ if __name__ == '__main__':
     bench.run()
     print "END BENCH"
 
+    fileNameZip = "exp-"+bench.now()+".zip"
+    os.system("zip -r "+fileNameZip+" exps")
     # To work with mail, it is necessary to config sendmail
-    os.system("echo 'Available results :D' | mail -s 'ChileCA Available' pleger@gmail.com")
+    os.system("echo 'Available results: http://pleger.cl/ChileCA/"+fileNameZip+"' | mail -s 'ChileCA Results Available' pleger@gmail.com")
 
 
 

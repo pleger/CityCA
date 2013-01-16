@@ -3,7 +3,7 @@ import matplotlib
 if socket.gethostname() == "duck": # To work in "duck" server
     matplotlib.use("Agg")
 
-
+import os
 from Automaton import Automaton
 from Simulation import Simulation
 from Analyzer import Analyzer
@@ -127,7 +127,7 @@ if __name__ == '__main__':
     print "BEGIN BENCH"
     bench.run()
     print "END BENCH"
-
+    os.system("echo 'Available results :D' | mail -s 'ChileCA Available' pleger@gmail.com")
 
 
 

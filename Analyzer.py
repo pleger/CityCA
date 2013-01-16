@@ -54,7 +54,7 @@ class Analyzer(object):
         #Join with the previous method
         decimal = (10**3)*1.0
         data = self.getLinearRegressionData(False)
-        data = [math.trunc(x*decimal)/decimal for x in data]
+        data = [math.trunc(x*decimal)/decimal if not math.isnan(x) else float("nan") for x in data]
 
         if not x or not y:
             values = self.createValuesForRegression(log)

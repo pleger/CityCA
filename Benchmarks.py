@@ -1,3 +1,4 @@
+import sys
 import socket
 import matplotlib
 if socket.gethostname() == "duck": # To work in "duck" server
@@ -40,8 +41,6 @@ class Benchmarks(object):
         """
         Comment for this method
         """
-        #Change directory temporally
-        os.chdir(self.directory)
 
         counter = 0
         for exp in self.exps:
@@ -51,22 +50,23 @@ class Benchmarks(object):
             arr = []
             self.run = types.MethodType(experiment,self,Benchmarks)
 
-            result = [0,0,0]
+            innerResult = [0,0,0]
             for r in range(self.repeat):
                 self.run()
 
-                if r == 1: #to generate data
+                if r == 0: #to generate data
                     arr.append(repr(self.automaton.rows)+"x"+repr(self.automaton.columns))
                     arr.append(repr(self.automaton.rmin))
                     arr.append(repr(self.automaton.rmax))
 
-                self.analyzer.createLinearRegressionGraph(self.log, save = True, prefixNameFile = "figure-"+name+"-"+arr.__str__())
-                result = [(x + y) for x, y  in zip(result, self.analyzer.getLinearRegressionData(self.log))]
+                self.analyzer.createLinearRegressionGraph(self.log, save = True, prefixNameFile = self.directory+
+                                                                                                  "/imgs/figure-"+name+"-"+arr.__str__())
+                innerResult = [(x + y) for x, y  in zip(innerResult, self.analyzer.getLinearRegressionData(self.log))]
 
-            result = [x/self.repeat for x in result]
+            innerResult = [x/self.repeat for x in innerResult]
 
             arr.append(repr(self.simulation.iterations))
-            arr += result
+            arr += innerResult
             self.results.append(arr)
 
             print "Finished name:"+name+" ("+str(counter)+ "/" + str(len(self.exps))+")"
@@ -76,10 +76,10 @@ class Benchmarks(object):
 
     def now(self):
         now = datetime.datetime.now()
-        return now.__str__()
+        return now.strftime("%Y-%m-%d-%H-%M").__str__()
 
     def generateReport(self):
-        f = open("report-"+self.now()+".csv",'w')
+        f = open(self.directory+"/report-"+self.now()+".csv",'w')
         text = "Z\trmin\trmax\tIte\tslope\tintercept"
         f.write(text+"\n")
 
@@ -91,22 +91,28 @@ class Benchmarks(object):
         f.close()
 
 if __name__ == '__main__':
+    if sys.argv[0]:
+        POPULATION = sys.argv[0]
+    else:
+        POPULATION = 100
+
     automaton = Automaton(1,1) # stupid values
     bench = Benchmarks(automaton)
+    POPULATION = 100
 
     def exp1(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(120, Agent.constRadium(5))
+        self.automaton.createPopulation(POPULATION, Agent.constRadium(5))
         self.simulation.start(30)
 
     def exp2(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(120, Agent.randomRangeRadiumNormal(5,7))
+        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(5,7))
         self.simulation.start(30)
 
     def exp3(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(120, Agent.randomRangeRadiumUnif(1,8))
+        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,8))
         self.simulation.start(30)
 
     def exp4(self):
@@ -114,7 +120,7 @@ if __name__ == '__main__':
         rmin = self.automaton.rmin
         rmax = self.automaton.rmax
 
-        self.automaton.createPopulation(120, Agent.randomRangeRadiumUnif(rmin,rmax))
+        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(rmin,rmax))
         self.simulation.start(30)
 
     def exp5(self):
@@ -122,12 +128,12 @@ if __name__ == '__main__':
         rmin = self.automaton.rmin
         rmax = self.automaton.rmax
 
-        self.automaton.createPopulation(120, Agent.randomRangeRadiumNormal(rmin,rmax))
+        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(rmin,rmax))
         self.simulation.start(30)
 
     bench.addExp(exp1,"constRadium")
     bench.addExp(exp2,"normRadium5-7")
-    bench.addExp(exp3,"unifRadium1,8")
+    bench.addExp(exp3,"unifRadium1-8")
     bench.addExp(exp4,"unifRadium-min-max")
     bench.addExp(exp5,"normalRadium-min-max")
 

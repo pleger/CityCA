@@ -69,7 +69,7 @@ class Analyzer(object):
         plt.title("Ranking of Population [slope="+str(data[0])+",inter="+str(data[1])+",r2="+str(data[2]) + "]")
 
         if save:
-            plt.savefig("imgs/"+prefixNameFile+".png")
+            plt.savefig(prefixNameFile+".png")
         else:
             plt.show()
 

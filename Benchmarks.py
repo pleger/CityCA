@@ -32,8 +32,8 @@ class Benchmarks(object):
     def setRepeat(self,repeat):
         self.repeat = repeat
 
-    def setScaleLog(self, log):
-        self.log = log
+    def enableLogScale(self):
+        self.log = True
 
     def run(self):
 
@@ -79,8 +79,7 @@ class Benchmarks(object):
         return now.__str__()
 
     def generateReport(self):
-        now = datetime.datetime.now()
-        f = open("report-"+now.__str__()+".csv",'w')
+        f = open("report-"+self.now()+".csv",'w')
         text = "Z\trmin\trmax\tIte\tslope\tintercept"
         f.write(text+"\n")
 
@@ -132,7 +131,7 @@ if __name__ == '__main__':
     bench.addExp(exp4,"unifRadium-min-max")
     bench.addExp(exp5,"normalRadium-min-max")
 
-    bench.setScaleLog(True)
+    #bench.setScaleLog()
     bench.setRepeat(1)
     print "BEGIN BENCH"
     bench.run()

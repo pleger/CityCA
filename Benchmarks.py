@@ -50,13 +50,16 @@ class Benchmarks(object):
             counter +=  1
             arr = []
             self.run = types.MethodType(experiment,self,Benchmarks)
-            arr.append(repr(self.automaton.rows)+"x"+repr(self.automaton.columns))
-            arr.append(repr(self.automaton.rmin))
-            arr.append(repr(self.automaton.rmax))
 
             result = [0,0,0]
             for r in range(self.repeat):
                 self.run()
+
+                if r == 1: #to generate data
+                    arr.append(repr(self.automaton.rows)+"x"+repr(self.automaton.columns))
+                    arr.append(repr(self.automaton.rmin))
+                    arr.append(repr(self.automaton.rmax))
+
                 self.analyzer.createLinearRegressionGraph(self.log, save = True, prefixNameFile = "figure-"+name+"-"+arr.__str__())
                 result = [(x + y) for x, y  in zip(result, self.analyzer.getLinearRegressionData(self.log))]
 
@@ -119,7 +122,7 @@ if __name__ == '__main__':
         self.automaton.createPopulation(12000, Agent.randomRangeRadiumNormal(rmin,rmax))
         self.simulation.start(30)
 
-    bench.addExp(exp1,"fixRadium")
+    bench.addExp(exp1,"constRadium")
     bench.addExp(exp2,"normRadium5-7")
     bench.addExp(exp3,"unifRadium1,8")
     bench.addExp(exp4,"unifRadium-min-max")

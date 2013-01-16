@@ -87,18 +87,18 @@ if __name__ == '__main__':
     bench = Benchmarks(automaton)
 
     def exp1(self):
-        self.automaton.reinit(40,20)
-        self.automaton.createPopulation(1000, Agent.maxRadium(5))
+        self.automaton.reinit(40,40)
+        self.automaton.createPopulation(12000, Agent.maxRadium(5))
         self.simulation.start(30)
 
     def exp2(self):
-        self.automaton.reinit(40,20)
-        self.automaton.createPopulation(1000, Agent.randomRangeRadiumNormal(5,7))
+        self.automaton.reinit(40,40)
+        self.automaton.createPopulation(12000, Agent.randomRangeRadiumNormal(5,7))
         self.simulation.start(30)
 
     def exp3(self):
-        self.automaton.reinit(40,20)
-        self.automaton.createPopulation(1000, Agent.randomRangeRadiumUnif(1,8))
+        self.automaton.reinit(40,40)
+        self.automaton.createPopulation(12000, Agent.randomRangeRadiumUnif(1,8))
         self.simulation.start(30)
 
     def exp4(self):
@@ -106,13 +106,22 @@ if __name__ == '__main__':
         rmin = self.automaton.rmin
         rmax = self.automaton.rmax
 
-        self.automaton.createPopulation(1000, Agent.randomRangeRadiumUnif(rmin,rmax))
+        self.automaton.createPopulation(12000, Agent.randomRangeRadiumUnif(rmin,rmax))
+        self.simulation.start(30)
+
+    def exp5(self):
+        self.automaton.reinit(50,50)
+        rmin = self.automaton.rmin
+        rmax = self.automaton.rmax
+
+        self.automaton.createPopulation(12000, Agent.randomRangeRadiumNormal(rmin,rmax))
         self.simulation.start(30)
 
     bench.addExp(exp1)
     bench.addExp(exp2)
     bench.addExp(exp3)
     bench.addExp(exp4)
+    bench.addExp(exp5)
 
     bench.setRepeat(1)
     print "BEGIN BENCH"

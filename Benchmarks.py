@@ -94,7 +94,7 @@ if __name__ == '__main__':
     if sys.argv[0]:
         POPULATION = sys.argv[0]
     else:
-        POPULATION = 100
+        POPULATION = 12000
 
     automaton = Automaton(1,1) # stupid values
     bench = Benchmarks(automaton)
@@ -137,7 +137,7 @@ if __name__ == '__main__':
     bench.addExp(exp4,"unifRadium-min-max")
     bench.addExp(exp5,"normalRadium-min-max")
 
-    #bench.setScaleLog()
+    #bench.enableLogScale()
     bench.setRepeat(1)
     print "BEGIN BENCH"
     bench.run()

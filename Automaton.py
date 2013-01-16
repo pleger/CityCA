@@ -81,9 +81,13 @@ class Automaton(object):
 
             finalRow = row + radius
             finalColumn = column + radius
-         
-        rangeRow = rn.sample(range(initialRow,finalRow + 1), finalRow - initialRow)
-        rangeCol = rn.sample(range(initialColumn,finalColumn + 1), finalColumn - initialColumn)
+
+        try:
+            rangeRow = rn.sample(range(initialRow,finalRow + 1), finalRow - initialRow + 1)
+            rangeCol = rn.sample(range(initialColumn,finalColumn + 1), finalColumn - initialColumn + 1)
+        except Exception:
+            print str(initialRow)+"/"+str(finalColumn)
+            exit()
 
         for r in rangeRow:
             if limitRow[0] <= r < limitRow[1]:

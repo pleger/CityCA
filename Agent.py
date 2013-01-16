@@ -105,5 +105,8 @@ class Agent(object):
     @staticmethod
     def randomRangeRadiumNormal(rmin,rmax):
         def radium():
-            return int(random.normal()*(rmax - rmin) + rmin)
+            value = int(random.normal((rmax+rmin)/2))
+            value = rmin if value < rmin else value
+            value = rmax if value > rmax else value
+            return value
         return radium

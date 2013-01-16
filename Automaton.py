@@ -76,6 +76,7 @@ class Automaton(object):
             finalRow = limitRow[1]
             finalColumn = limitColumn[1]
         else:
+            deltaRow = row - radius
             initialRow = row - radius
             initialColumn = column - radius
 

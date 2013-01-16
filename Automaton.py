@@ -86,7 +86,8 @@ class Automaton(object):
             rangeRow = rn.sample(range(initialRow,finalRow + 1), finalRow - initialRow + 1)
             rangeCol = rn.sample(range(initialColumn,finalColumn + 1), finalColumn - initialColumn + 1)
         except Exception:
-            print str(initialRow)+"/"+str(finalColumn)
+            print "ROW:"+str(initialRow)+"/"+str(finalRow)
+            print "COL:"+str(initialColumn)+"/"+str(finalColumn)
             exit()
 
         for r in rangeRow:

@@ -1,5 +1,5 @@
 #!/bin/sh
 rm log.txt
-
-nohup python Benchmarks.py > log.txt &
+./cleanExpResults.sh > log.txt
+nohup python Benchmarks.py >> log.txt &
 

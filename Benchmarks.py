@@ -58,6 +58,7 @@ class Benchmarks(object):
                     arr.append(repr(self.automaton.rows)+"x"+repr(self.automaton.columns))
                     arr.append(repr(self.automaton.rmin))
                     arr.append(repr(self.automaton.rmax))
+                    arr.append(repr(len(self.automaton.getAgents())))
 
                 self.analyzer.createLinearRegressionGraph(self.log, save = True, prefixNameFile = self.directory+
                                                                                                   "/imgs/figure-"+name+"-"+arr.__str__())
@@ -80,12 +81,12 @@ class Benchmarks(object):
 
     def generateReport(self):
         f = open(self.directory+"/report-"+self.now()+".csv",'w')
-        text = "Z\trmin\trmax\tIte\tslope\tintercept"
+        text = "Z\trmin\trmax\tIte\tagents\tslope\tintercept"
         f.write(text+"\n")
 
         for result in self.results:
             text = repr(result[0])+"\t"+repr(result[1])+"\t"+repr(result[2])+"\t"+repr(result[3])+"\t"
-            text += repr(result[4])+"\t"+repr(result[5])
+            text += repr(result[4])+"\t"+repr(result[5])+"\t"+repr(result[6])
             f.write(text+"\n")
 
         f.close()
@@ -98,7 +99,6 @@ if __name__ == '__main__':
 
     automaton = Automaton(1,1) # stupid values
     bench = Benchmarks(automaton)
-    POPULATION = 100
 
     def exp1(self):
         self.automaton.reinit(40,40)
@@ -146,7 +146,7 @@ if __name__ == '__main__':
     fileNameZip = "exp-"+bench.now()+".zip"
     os.system("zip -r "+fileNameZip+" exps")
     # To work with mail, it is necessary to config sendmail
-    os.system("echo 'Available results: http://pleger.cl/ChileCA/"+fileNameZip+"' | mail -s 'ChileCA Results Available' pleger@gmail.com")
+    #os.system("echo 'Available results: http://pleger.cl/ChileCA/"+fileNameZip+"' | mail -s 'ChileCA Results Available' pleger@gmail.com")
 
 
 

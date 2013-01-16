@@ -10,7 +10,7 @@ from Agent import Agent
 #TODO: USE A GUI TO CONFIG THESE PARAMETERS
 COLUMNS = 30
 ROWS = 30
-POPULATION = 120
+POPULATION = 100
 ITERATIONS = 20
 
 #executing the main method of the code

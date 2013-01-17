@@ -51,7 +51,6 @@ class Benchmarks(object):
 
             innerResult = [0,0,0]
             for r in range(self.repeat):
-                print ("REPEAT:"+str(r))
                 self.run()
 
                 if r == 0: #to generate data
@@ -62,7 +61,7 @@ class Benchmarks(object):
                     arr.append(repr(len(self.automaton.getAgents())))
 
                 self.analyzer.createLinearRegressionGraph(self.log, save = True, prefixNameFile = self.directory+
-                                                                                                  "/imgs/figure-"+arr.__str__())
+                                                                                                  "/imgs/figure-"+arr.__str__()+"-repeat-"+str(r))
                 innerResult = [(x + y) for x, y  in zip(innerResult, self.analyzer.getLinearRegressionData(self.log))]
 
             innerResult = [x/self.repeat for x in innerResult]

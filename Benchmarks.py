@@ -37,7 +37,6 @@ class Benchmarks(object):
         self.log = True
 
     def run(self):
-
         """
         Comment for this method
         """
@@ -55,13 +54,14 @@ class Benchmarks(object):
                 self.run()
 
                 if r == 0: #to generate data
+                    arr.append(name)
                     arr.append(repr(self.automaton.rows)+"x"+repr(self.automaton.columns))
                     arr.append(repr(self.automaton.rmin))
                     arr.append(repr(self.automaton.rmax))
                     arr.append(repr(len(self.automaton.getAgents())))
 
                 self.analyzer.createLinearRegressionGraph(self.log, save = True, prefixNameFile = self.directory+
-                                                                                                  "/imgs/figure-"+name+"-"+arr.__str__())
+                                                                                                  "/imgs/figure-"+arr.__str__())
                 innerResult = [(x + y) for x, y  in zip(innerResult, self.analyzer.getLinearRegressionData(self.log))]
 
             innerResult = [x/self.repeat for x in innerResult]
@@ -72,7 +72,6 @@ class Benchmarks(object):
 
             print "Finished name:"+name+" ("+str(counter)+ "/" + str(len(self.exps))+")"
 
-
         self.generateReport()
 
     def now(self):
@@ -81,18 +80,19 @@ class Benchmarks(object):
 
     def generateReport(self):
         f = open(self.directory+"/report-"+self.now()+".csv",'w')
-        text = "Z\trmin\trmax\tIte\tagents\tslope\tintercept"
+        text = "Name,Z,rmin,rmax,Ite,agents,slope,intercept"
         f.write(text+"\n")
 
         for result in self.results:
-            text = repr(result[0])+"\t"+repr(result[1])+"\t"+repr(result[2])+"\t"+repr(result[3])+"\t"
-            text += repr(result[4])+"\t"+repr(result[5])+"\t"+repr(result[6])
+            text = repr(result[0])+","+repr(result[1])+","+repr(result[2])+","+repr(result[3])+","
+            text += repr(result[4])+","+repr(result[5])+","+repr(result[6])+","+repr(result[7])
             f.write(text+"\n")
 
         f.close()
 
 if __name__ == '__main__':
-    POPULATION = 12000
+    POPULATION = 2000
+    ITERATION = 4
 
     automaton = Automaton(1,1) # stupid values
     bench = Benchmarks(automaton)
@@ -100,17 +100,17 @@ if __name__ == '__main__':
     def exp1(self):
         self.automaton.reinit(40,40)
         self.automaton.createPopulation(POPULATION, Agent.constRadium(5))
-        self.simulation.start(30)
+        self.simulation.start(ITERATION)
 
     def exp2(self):
         self.automaton.reinit(40,40)
         self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(5,7))
-        self.simulation.start(30)
+        self.simulation.start(ITERATION)
 
     def exp3(self):
         self.automaton.reinit(40,40)
         self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,8))
-        self.simulation.start(30)
+        self.simulation.start(ITERATION)
 
     def exp4(self):
         self.automaton.reinit(50,50)
@@ -118,7 +118,7 @@ if __name__ == '__main__':
         rmax = self.automaton.rmax
 
         self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(rmin,rmax))
-        self.simulation.start(30)
+        self.simulation.start(ITERATION)
 
     def exp5(self):
         self.automaton.reinit(50,50)
@@ -126,7 +126,7 @@ if __name__ == '__main__':
         rmax = self.automaton.rmax
 
         self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(rmin,rmax))
-        self.simulation.start(30)
+        self.simulation.start(ITERATION)
 
     bench.addExp(exp1,"constRadium")
     bench.addExp(exp2,"normRadium5-7")
@@ -134,7 +134,7 @@ if __name__ == '__main__':
     bench.addExp(exp4,"unifRadium-min-max")
     bench.addExp(exp5,"normalRadium-min-max")
 
-    #bench.enableLogScale()
+    bench.enableLogScale()
     bench.setRepeat(1)
     print "BEGIN BENCH"
     bench.run()

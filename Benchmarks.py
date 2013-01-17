@@ -136,14 +136,17 @@ if __name__ == '__main__':
 
     bench.enableLogScale()
     bench.setRepeat(3)
+    initialTime = datetime.datetime.now()
     print "BEGIN BENCH"
     bench.run()
     print "END BENCH"
+    finalTime = datetime.datetime.now()
+    deltaTime = finalTime - initialTime
 
     fileNameZip = "exp-"+bench.now()+".zip"
     os.system("zip -r "+fileNameZip+" exps")
     # To work with mail, it is necessary to config sendmail
-    os.system("echo 'Available results: http://pleger.cl/ChileCA/"+fileNameZip+"' | mail -s 'ChileCA Results Available' pleger@gmail.com")
+    os.system("echo 'Available results (Time: "+ deltaTime.__str__() +"): http://pleger.cl/ChileCA/"+fileNameZip+"' | mail -s 'ChileCA Results Available' pleger@gmail.com")
 
 
 

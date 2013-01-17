@@ -80,12 +80,12 @@ class Benchmarks(object):
 
     def generateReport(self):
         f = open(self.directory+"/report-"+self.now()+".txt",'w')
-        text = "Name,Z,rmin,rmax,Ite,agents,slope,intercept"
+        text = "Name;Z;rmin;rmax;Ite;agents;slope;intercept"
         f.write(text+"\n")
 
         for result in self.results:
-            text = repr(result[0])+","+repr(result[1])+","+repr(result[2])+","+repr(result[3])+","
-            text += repr(result[4])+","+repr(result[5])+","+repr(result[6])+","+repr(result[7])
+            text = repr(result[0])+";"+repr(result[1])+";"+repr(result[2])+";"+repr(result[3])+";"
+            text += repr(result[4])+";"+repr(result[5])+";"+repr(result[6])+";"+repr(result[7])
             f.write(text+"\n")
 
         f.close()

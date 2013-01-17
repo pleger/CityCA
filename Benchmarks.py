@@ -91,8 +91,8 @@ class Benchmarks(object):
         f.close()
 
 if __name__ == '__main__':
-    POPULATION = 2000
-    ITERATION = 4
+    POPULATION = 12000
+    ITERATION = 40
 
     automaton = Automaton(1,1) # stupid values
     bench = Benchmarks(automaton)
@@ -135,7 +135,7 @@ if __name__ == '__main__':
     bench.addExp(exp5,"normalRadium-min-max")
 
     bench.enableLogScale()
-    bench.setRepeat(3)
+    bench.setRepeat(5)
     initialTime = datetime.datetime.now()
     print "BEGIN BENCH"
     bench.run()

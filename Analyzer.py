@@ -42,7 +42,7 @@ class Analyzer(object):
             x = self.applyLog(x)
             y = self.applyLog(y)
 
-        return [x,y]
+        return [y,x]
 
     def getLinearRegressionData(self, log):
         values = self.createValuesForRegression(log)

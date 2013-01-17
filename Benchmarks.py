@@ -79,7 +79,7 @@ class Benchmarks(object):
         return now.strftime("%Y-%m-%d-%H-%M").__str__()
 
     def generateReport(self):
-        f = open(self.directory+"/report-"+self.now()+".csv",'w')
+        f = open(self.directory+"/report-"+self.now()+".txt",'w')
         text = "Name,Z,rmin,rmax,Ite,agents,slope,intercept"
         f.write(text+"\n")
 
@@ -135,7 +135,7 @@ if __name__ == '__main__':
     bench.addExp(exp5,"normalRadium-min-max")
 
     bench.enableLogScale()
-    bench.setRepeat(1)
+    bench.setRepeat(3)
     print "BEGIN BENCH"
     bench.run()
     print "END BENCH"

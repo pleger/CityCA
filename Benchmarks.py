@@ -51,6 +51,7 @@ class Benchmarks(object):
 
             innerResult = [0,0,0]
             for r in range(self.repeat):
+                print ("REPEAT:"+str(r))
                 self.run()
 
                 if r == 0: #to generate data
@@ -143,7 +144,7 @@ if __name__ == '__main__':
     finalTime = datetime.datetime.now()
     deltaTime = finalTime - initialTime
 
-    fileNameZip = "exp-"+bench.now()+".zip"
+    fileNameZip = "expResult-"+bench.now()+".zip"
     os.system("zip -r "+fileNameZip+" exps")
     # To work with mail, it is necessary to config sendmail
     os.system("echo 'Available results (Time: "+ deltaTime.__str__() +"): http://pleger.cl/ChileCA/"+fileNameZip+"' | mail -s 'ChileCA Results Available' pleger@gmail.com")

@@ -134,7 +134,7 @@ if __name__ == '__main__':
     bench.addExp(exp4,"unifRadium-min-max")
     bench.addExp(exp5,"normalRadium-min-max")
 
-    bench.enableLogScale()
+    #bench.enableLogScale()
     bench.setRepeat(5)
     initialTime = datetime.datetime.now()
     print "BEGIN BENCH"

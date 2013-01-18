@@ -56,11 +56,7 @@ class Analyzer(object):
         data = self.getLinearRegressionData(False)
         data = [math.trunc(x*decimal)/decimal if not math.isnan(x) else float("nan") for x in data]
 
-        if not x or not y:
-            values = self.createValuesForRegression(log)
-        else:
-            values = [x,y]
-
+        values = self.createValuesForRegression(log)
 
         now = datetime.datetime.now()
         plt.plot(values[0],values[1],'co')

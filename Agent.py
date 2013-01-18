@@ -68,7 +68,7 @@ class Agent(object):
         """This method returns the numbers of agents of a cell
         """
         n = cell.countAgents()
-        n = (n + 1)  if not own else n
+        #n = (n + 1)  if not own else n
         return n
 
     @staticmethod

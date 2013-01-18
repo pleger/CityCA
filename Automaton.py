@@ -83,18 +83,21 @@ class Automaton(object):
             finalRow = row + radius
             finalColumn = column + radius
 
-        try:
-            rangeRow = rn.sample(range(initialRow,finalRow + 1), finalRow - initialRow + 1)
-            rangeCol = rn.sample(range(initialColumn,finalColumn + 1), finalColumn - initialColumn + 1)
-        except Exception:
-            print "ROW:"+str(initialRow)+"/"+str(finalRow)
-            print "COL:"+str(initialColumn)+"/"+str(finalColumn)
-            exit()
+            initialRow = limitRow[0] if initialRow < limitRow[0] else initialRow
+            initialColumn = limitColumn[0] if initialColumn < limitColumn[0] else initialColumn
+
+            finalRow = limitRow[1] if finalRow > limitRow[1] else finalRow
+            finalColumn = limitColumn[1] if finalColumn > limitColumn[1] else finalColumn
+
+
+
+        rangeRow = rn.sample(range(initialRow,finalRow + 1), finalRow - initialRow + 1)
+        rangeCol = rn.sample(range(initialColumn,finalColumn + 1), finalColumn - initialColumn + 1)
+
 
         for r in rangeRow:
-            if limitRow[0] <= r < limitRow[1]:
                 for c in rangeCol:
-                    if  limitColumn[0] <= c < limitColumn[1] and r != row and c != column:
+                    if  r != row and c != column:
                         neighbors.append(self.getCell(r,c))
         
         return  neighbors

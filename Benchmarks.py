@@ -99,17 +99,17 @@ if __name__ == '__main__':
 
     def exp1(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(POPULATION, Agent.constRadium(5))
+        self.automaton.createPopulation(POPULATION, Agent.constRadium(4))
         self.simulation.start(ITERATION)
 
     def exp2(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(5,7))
+        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(1,10))
         self.simulation.start(ITERATION)
 
     def exp3(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,8))
+        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,10))
         self.simulation.start(ITERATION)
 
     def exp4(self):
@@ -129,8 +129,8 @@ if __name__ == '__main__':
         self.simulation.start(ITERATION)
 
     bench.addExp(exp1,"constRadium")
-    bench.addExp(exp2,"normRadium5-7")
-    bench.addExp(exp3,"unifRadium1-8")
+    bench.addExp(exp2,"normRadium1-10")
+    bench.addExp(exp3,"unifRadium1-10")
     bench.addExp(exp4,"unifRadium-min-max")
     bench.addExp(exp5,"normalRadium-min-max")
 

@@ -21,7 +21,6 @@ class Benchmarks(object):
         self.automaton = automaton
         self.simulation = Simulation(automaton, False)
         self.analyzer = Analyzer(automaton)
-        self.results = []
         self.repeat = 1.0
         self.simulation.DEBUG_ITERATIONS = -1
         self.directory = "exps"
@@ -40,6 +39,7 @@ class Benchmarks(object):
         """
         Comment for this method
         """
+        results = []
 
         counter = 0
         for exp in self.exps:
@@ -68,24 +68,24 @@ class Benchmarks(object):
 
             arr.append(repr(self.simulation.iterations))
             arr += innerResult
-            self.results.append(arr)
+            results.append(arr)
 
             print "Finished name:"+name+" ("+str(counter)+ "/" + str(len(self.exps))+")"
 
-        self.generateReport()
+        self.generateReport(results)
 
     def now(self):
         now = datetime.datetime.now()
         return now.strftime("%Y-%m-%d-%H-%M").__str__()
 
-    def generateReport(self):
+    def generateReport(self, results):
         f = open(self.directory+"/report-"+self.now()+".txt",'w')
-        text = "Name;Z;rmin;rmax;Ite;agents;slope;intercept"
+        text = "Name;Z;rmin;rmax;Ite;agents;slope;intercept;r2"
         f.write(text+"\n")
 
-        for result in self.results:
+        for result in results:
             text = repr(result[0])+";"+repr(result[1])+";"+repr(result[2])+";"+repr(result[3])+";"
-            text += repr(result[4])+";"+repr(result[5])+";"+repr(result[6])+";"+repr(result[7])
+            text += repr(result[4])+";"+repr(result[5])+";"+repr(result[6])+";"+repr(result[7])+";"+repr(result[8])
             f.write(text+"\n")
 
         f.close()
@@ -99,17 +99,17 @@ if __name__ == '__main__':
 
     def exp1(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(POPULATION, Agent.constRadium(4))
+        self.automaton.createPopulation(POPULATION, Agent.constRadium(5))
         self.simulation.start(ITERATION)
 
     def exp2(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(1,10))
+        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(1,5))
         self.simulation.start(ITERATION)
 
     def exp3(self):
         self.automaton.reinit(40,40)
-        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,10))
+        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,5))
         self.simulation.start(ITERATION)
 
     def exp4(self):
@@ -128,14 +128,14 @@ if __name__ == '__main__':
         self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(rmin,rmax))
         self.simulation.start(ITERATION)
 
-    bench.addExp(exp1,"constRadium")
-    bench.addExp(exp2,"normRadium1-10")
-    bench.addExp(exp3,"unifRadium1-10")
+    bench.addExp(exp1,"constRadium-5")
+    bench.addExp(exp2,"normRadium1-5")
+    bench.addExp(exp3,"unifRadium1-5")
     bench.addExp(exp4,"unifRadium-min-max")
     bench.addExp(exp5,"normalRadium-min-max")
 
     #bench.enableLogScale()
-    bench.setRepeat(5)
+    bench.setRepeat(10)
     initialTime = datetime.datetime.now()
     print "BEGIN BENCH"
     bench.run()

@@ -89,10 +89,8 @@ class Automaton(object):
             finalRow = limitRow[1] - 1 if finalRow >= limitRow[1] else finalRow
             finalColumn = limitColumn[1] - 1 if finalColumn >= limitColumn[1] else finalColumn
 
-
         rangeRow = rn.sample(range(initialRow,finalRow + 1), finalRow - initialRow + 1)
         rangeCol = rn.sample(range(initialColumn,finalColumn + 1), finalColumn - initialColumn + 1)
-
 
         for r in rangeRow:
                 for c in rangeCol:

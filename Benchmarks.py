@@ -80,7 +80,7 @@ class Benchmarks(object):
 
     def generateReport(self, results):
         f = open(self.directory+"/report-"+self.now()+".txt",'w')
-        text = "Name;Z;rmin;rmax;Ite;agents;slope;intercept;r2"
+        text = "Name;Z;rmin;rmax;agents;Ite;slope;intercept;r2"
         f.write(text+"\n")
 
         for result in results:
@@ -93,46 +93,30 @@ class Benchmarks(object):
 if __name__ == '__main__':
     POPULATION = 12000
     ITERATION = 40
+    RMAX = 15
 
     automaton = Automaton(1,1) # stupid values
     bench = Benchmarks(automaton)
 
     def exp1(self):
-        self.automaton.reinit(40,40)
-        self.automaton.createPopulation(POPULATION, Agent.constRadium(5))
+        self.automaton.reinit(50,50)
+        self.automaton.createPopulation(POPULATION, Agent.constRadium(RMAX))
         self.simulation.start(ITERATION)
 
     def exp2(self):
-        self.automaton.reinit(40,40)
-        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(1,5))
+        self.automaton.reinit(50,50)
+        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(1,RMAX))
         self.simulation.start(ITERATION)
 
     def exp3(self):
-        self.automaton.reinit(40,40)
-        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,5))
-        self.simulation.start(ITERATION)
-
-    def exp4(self):
         self.automaton.reinit(50,50)
-        rmin = self.automaton.rmin
-        rmax = self.automaton.rmax
-
-        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(rmin,rmax))
+        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,RMAX))
         self.simulation.start(ITERATION)
 
-    def exp5(self):
-        self.automaton.reinit(50,50)
-        rmin = self.automaton.rmin
-        rmax = self.automaton.rmax
 
-        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(rmin,rmax))
-        self.simulation.start(ITERATION)
-
-    bench.addExp(exp1,"constRadium-5")
-    bench.addExp(exp2,"normRadium1-5")
-    bench.addExp(exp3,"unifRadium1-5")
-    bench.addExp(exp4,"unifRadium-min-max")
-    bench.addExp(exp5,"normalRadium-min-max")
+    bench.addExp(exp1,"constRadium-15")
+    bench.addExp(exp2,"normRadium1-15")
+    bench.addExp(exp3,"unifRadium1-15")
 
     #bench.enableLogScale()
     bench.setRepeat(10)

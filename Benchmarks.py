@@ -4,14 +4,13 @@ import matplotlib
 if socket.gethostname() == "duck": # To work in "duck" server
     matplotlib.use("Agg")
 
-import os
 from Automaton import Automaton
 from Simulation import Simulation
 from Analyzer import Analyzer
 from Agent import Agent
 import datetime
 import types
-import os
+
 
 
 class Benchmarks(object):
@@ -28,6 +27,9 @@ class Benchmarks(object):
 
     def addExp(self,exp, name):
         self.exps.append([name,exp])
+
+    def addExps(self,exps):
+        self.exps += exps
 
     def setRepeat(self,repeat):
         self.repeat = repeat
@@ -90,47 +92,6 @@ class Benchmarks(object):
 
         f.close()
 
-if __name__ == '__main__':
-    POPULATION = 12000
-    ITERATION = 40
-    RMAX = 15
-
-    automaton = Automaton(1,1) # stupid values
-    bench = Benchmarks(automaton)
-
-    def exp1(self):
-        self.automaton.reinit(50,50)
-        self.automaton.createPopulation(POPULATION, Agent.constRadium(RMAX))
-        self.simulation.start(ITERATION)
-
-    def exp2(self):
-        self.automaton.reinit(50,50)
-        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(1,RMAX))
-        self.simulation.start(ITERATION)
-
-    def exp3(self):
-        self.automaton.reinit(50,50)
-        self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,RMAX))
-        self.simulation.start(ITERATION)
-
-
-    bench.addExp(exp1,"constRadium-15")
-    bench.addExp(exp2,"normRadium1-15")
-    bench.addExp(exp3,"unifRadium1-15")
-
-    #bench.enableLogScale()
-    bench.setRepeat(10)
-    initialTime = datetime.datetime.now()
-    print "BEGIN BENCH"
-    bench.run()
-    print "END BENCH"
-    finalTime = datetime.datetime.now()
-    deltaTime = finalTime - initialTime
-
-    fileNameZip = "expResult-"+bench.now()+".zip"
-    os.system("zip -r "+fileNameZip+" exps")
-    # To work with mail, it is necessary to config sendmail
-    os.system("echo 'Available results (Time: "+ deltaTime.__str__() +"): http://pleger.cl/ChileCA/"+fileNameZip+"' | mail -s 'ChileCA Results Available' pleger@gmail.com")
 
 
 

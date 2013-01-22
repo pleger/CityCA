@@ -26,21 +26,29 @@ class Agent(object):
          """
         self.getFitness = types.MethodType(fitness,self,Agent)
 
-    def step(self,grid):
+    def step(self,automaton):
         """This method sets the next location of the agent as the best location
         """
-        self.nextLocation = self.getBestLocation(grid)
+        self.nextLocation = self.getBestLocation(automaton)
   
-    def getBestLocation(self,grid):
+    def getBestLocation(self,automaton):
         """This method finds the best location to move the agent by using the fitness function
         """
         maxLoc = self.location
-        maxFitness = self.getFitness(grid.getCell(maxLoc), own = True)
-        cells = grid.getNeighbors(maxLoc,self.radius)
+        maxFitness = self.getFitness(automaton.getCell(maxLoc), own = True)
+        cells = automaton.getNeighbors(maxLoc,self.radius)
         
         for cell in cells:
-            fitness = self.getFitness(cell) #change this value
-            
+
+            if automaton.getHasCachedValue(cell):
+                fitness = automaton.getCachedValue(cell)
+            else:
+                fitness = self.getFitness(cell) #change this value
+                automaton.setCachedValue(cell,fitness)
+
+            if fitness < 0:
+                print fitness
+
             if maxFitness < fitness:
                 maxFitness = fitness
                 maxLoc = cell.location
@@ -68,12 +76,26 @@ class Agent(object):
         """This method returns the numbers of agents of a cell
         """
         n = cell.countAgents()
+        n = (n + 1)  if not own else n
+        return n
+
+    def paperFitness(self, cell, own = False):
+        """This method returns the numbers of agents of a cell
+        """
+        n = cell.countAgents()
         #n = (n + 1)  if not own else n
         return n
+
 
     @staticmethod
     def randomFitness(self,cell, own = False):
         return random.randint(30)
+
+    @staticmethod
+    def deagglomerationForceFitness(self,cell, own = False):
+        c = 0.325
+        n = cell.countAgents()
+        return n - c*n*n
 
     #Higher-function for radium
     @staticmethod

@@ -13,7 +13,7 @@ from Simulation import Simulation
 COLUMNS = 10
 ROWS = 10
 POPULATION = 30
-ITERATIONS = 40
+ITERATIONS = 20
 
 
 class TestFitness(unittest.TestCase):
@@ -23,6 +23,16 @@ class TestFitness(unittest.TestCase):
         self.simulation = Simulation(self.automaton, False)
 
 
+    def test_population(self):
+
+        self.automaton.reinit(ROWS,COLUMNS)
+        self.automaton.createPopulation(POPULATION,Agent.infiniteRadium())
+        self.simulation.start(ITERATIONS)
+        self.assertTrue(self.automaton.convergence,"IT IS CONVERGENCE")
+        array = self.automaton.getMatrixOfPopulation()
+        #print repr(self.automaton) + " " + repr(array.max())
+        self.assertEqual(POPULATION, len(self.automaton.getAgents()), "ALL AGENTS")
+
     def test_default(self):
 
         self.automaton.reinit(ROWS,COLUMNS)
@@ -30,7 +40,9 @@ class TestFitness(unittest.TestCase):
         self.simulation.start(ITERATIONS)
         self.assertTrue(self.automaton.convergence,"IT IS CONVERGENCE")
         array = self.automaton.getMatrixOfPopulation()
+        #print repr(self.automaton) + " " + repr(array.max())
         self.assertEqual(array.max(), len(self.automaton.getAgents()), "ONE PLACE")
+
 
     def test_random(self):
 

@@ -8,6 +8,7 @@ from Agent import Agent
 from Cell import Cell
 import random as rn
 import math
+import sys
 
 
 
@@ -21,6 +22,8 @@ class Automaton(object):
     def reinit(self,rows,columns):
         """This method sets the rows and columns as default
         """
+        self.cached = True
+        self.cacheFitness = ndarray(shape=(rows,columns),dtype=float)
         self.rows = rows
         self.columns = columns
         self.rmin = 1
@@ -30,11 +33,22 @@ class Automaton(object):
         self.nextAgentTrack = []
 
 
-
         self.cellGrid = ndarray(shape=(rows,columns),dtype=Cell)
         self.nextCellGrid = empty(shape=(rows,columns),dtype=Cell)
         self.__clear()
-         
+
+    def disableCache(self):
+        self.cached = False
+
+    def setCachedValue(self, cell, value):
+        self.cacheFitness[cell.location.row, cell.location.column] = value
+
+    def getHasCachedValue(self, cell):
+        return not self.cacheFitness[cell.location.row, cell.location.column] == sys.float_info.min and self.cached == True
+
+    def getCachedValue(self, cell):
+        return self.cacheFitness[cell.location.row, cell.location.column]
+
     def createPopulation(self, number, radius, fitness = None):
         """This method creates the agents and put them in the grid
         """
@@ -74,8 +88,8 @@ class Automaton(object):
             initialRow = limitRow[0]
             initialColumn = limitRow[0]
             
-            finalRow = limitRow[1]
-            finalColumn = limitColumn[1]
+            finalRow = limitRow[1] - 1
+            finalColumn = limitColumn[1] - 1
         else:
             initialRow = row - radius
             initialColumn = column - radius
@@ -167,6 +181,7 @@ class Automaton(object):
         for r in range(self.rows):
             for c in range(self.columns):
                 self.nextCellGrid[r,c] = Cell(r,c)
+                self.cacheFitness[r,c] = sys.float_info.min
 
     def __clear(self):
         """This method

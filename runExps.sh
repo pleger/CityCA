@@ -3,6 +3,6 @@
 #!/bin/sh
 rm log.txt
 ./cleanExpResults.sh > log.txt
-nohup python Benchmarks.py $1 >> log.txt &
+nohup python BenchmarksMain.py $1 >> log.txt &
 
 

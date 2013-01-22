@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     bench.addExps(expsPapers())
 
-    #bench.enableLogScale()
+    bench.enableLogScale()
     bench.setRepeat(10)
     initialTime = datetime.datetime.now()
     print "BEGIN BENCH"

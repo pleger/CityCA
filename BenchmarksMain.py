@@ -32,7 +32,7 @@ __author__ = 'pleger'
 
 if __name__ == '__main__':
     POPULATION = 12000
-    ITERATION = 40
+    ITERATION = 80
     RMIN = 1
     RMAX = 15
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         for rmax in [1,5,10,15,25]:
             def exp(self):
                 self.automaton.reinit(50,50)
-                self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumNormal(1,rmax))
+                self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,rmax))
                 self.simulation.start(ITERATION)
 
             exps.append(["normal-1-"+str(rmax),exp])

@@ -22,8 +22,7 @@ class TestFitness(unittest.TestCase):
         self.automaton = Automaton(ROWS,COLUMNS)
         self.simulation = Simulation(self.automaton, False)
 
-
-    def test_population(self):
+    def test_infiniteRadium(self):
 
         self.automaton.reinit(ROWS,COLUMNS)
         self.automaton.createPopulation(POPULATION,Agent.infiniteRadium())
@@ -33,15 +32,11 @@ class TestFitness(unittest.TestCase):
         #print repr(self.automaton) + " " + repr(array.max())
         self.assertEqual(POPULATION, len(self.automaton.getAgents()), "ALL AGENTS")
 
-    def test_default(self):
-
+    def test_withZeroRadium(self):
         self.automaton.reinit(ROWS,COLUMNS)
-        self.automaton.createPopulation(POPULATION,Agent.infiniteRadium())
-        self.simulation.start(ITERATIONS)
+        self.automaton.createPopulation(POPULATION,Agent.constRadium(0))
+        self.simulation.start(3)
         self.assertTrue(self.automaton.convergence,"IT IS CONVERGENCE")
-        array = self.automaton.getMatrixOfPopulation()
-        #print repr(self.automaton) + " " + repr(array.max())
-        self.assertEqual(array.max(), len(self.automaton.getAgents()), "ONE PLACE")
 
 
     def test_random(self):

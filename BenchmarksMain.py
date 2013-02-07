@@ -44,6 +44,10 @@ if __name__ == '__main__':
         for rmax in [1,5,10,15,25]:
             def exp(self):
                 self.automaton.reinit(50,50)
+
+                self.automaton.disableRandomVisitingOfCells()
+                self.automaton.enableCircularGrid()
+
                 self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,rmax))
                 self.simulation.start(ITERATION)
 

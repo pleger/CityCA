@@ -29,13 +29,23 @@ class Automaton(object):
         self.rmin = 1
         self.rmax = max(rows,columns)
 
+
         self.agentTrack = []
         self.nextAgentTrack = []
 
+        #Special radium configuration
+        self.circularGrid = False
+        self.randomVisiting = True
 
         self.cellGrid = ndarray(shape=(rows,columns),dtype=Cell)
         self.nextCellGrid = empty(shape=(rows,columns),dtype=Cell)
         self.__clear()
+
+    def enableCircularGrid(self):
+        self.circularGrid = True
+
+    def disableRandomVisitingOfCells(self):
+        self.randomVisiting = False
 
     def disableCache(self):
         self.cached = False
@@ -65,7 +75,53 @@ class Automaton(object):
         self.cellGrid[loc.row,loc.column].addAgent(agent)
         self.agentTrack.append(agent)
 
-                
+    def getRanges(self,row, column, radius):
+        limitRow = [0, self.rows]
+        limitColumn = [0, self.columns]
+
+        #todo improve this code
+        if radius == -1:
+            initialRow = limitRow[0]
+            initialColumn = limitRow[0]
+
+            finalRow = limitRow[1] - 1
+            finalColumn = limitColumn[1] - 1
+        else:
+            initialRow = row - radius
+            initialColumn = column - radius
+
+            finalRow = row + radius
+            finalColumn = column + radius
+
+
+            if not self.circularGrid:
+                initialRow = limitRow[0] if initialRow < limitRow[0] else initialRow
+                initialColumn = limitColumn[0] if initialColumn < limitColumn[0] else initialColumn
+
+                finalRow = limitRow[1] - 1 if finalRow >= limitRow[1] else finalRow
+                finalColumn = limitColumn[1] - 1 if finalColumn >= limitColumn[1] else finalColumn
+
+
+        rangeRow = range(initialRow,finalRow + 1)
+        rangeCol = range(initialColumn,finalColumn + 1)
+
+        if self.randomVisiting:
+            rangeRow = rn.sample(rangeRow, finalRow - initialRow + 1)
+            rangeCol = rn.sample(rangeCol, finalColumn - initialColumn + 1)
+
+        #transalting negative value
+        rr = []
+        for r in rangeRow:
+            rr.append(r % self.rows if r >= 0 else self.rows + r)
+
+        cc = []
+        for c in rangeCol:
+            cc.append(c % self.columns if c >= 0 else self.columns + c)
+
+        return [rr,cc]
+
+
+
     def getNeighbors(self,*args):
         """This method gets the numbers of the neighbors (It depends of the radius)
         """
@@ -77,37 +133,15 @@ class Automaton(object):
         else: #len(args) = 3
             row = args[0]
             column = args[1]
-            radius = args[2]    
+            radius = args[2]
             
         neighbors = []
-        limitRow = [0,self.rows]
-        limitColumn = [0,self.columns]
 
-        #todo improve this code
-        if radius == -1:
-            initialRow = limitRow[0]
-            initialColumn = limitRow[0]
-            
-            finalRow = limitRow[1] - 1
-            finalColumn = limitColumn[1] - 1
-        else:
-            initialRow = row - radius
-            initialColumn = column - radius
+        ranges = self.getRanges(row,column,radius)
 
-            finalRow = row + radius
-            finalColumn = column + radius
 
-            initialRow = limitRow[0] if initialRow < limitRow[0] else initialRow
-            initialColumn = limitColumn[0] if initialColumn < limitColumn[0] else initialColumn
-
-            finalRow = limitRow[1] - 1 if finalRow >= limitRow[1] else finalRow
-            finalColumn = limitColumn[1] - 1 if finalColumn >= limitColumn[1] else finalColumn
-
-        rangeRow = rn.sample(range(initialRow,finalRow + 1), finalRow - initialRow + 1)
-        rangeCol = rn.sample(range(initialColumn,finalColumn + 1), finalColumn - initialColumn + 1)
-
-        for r in rangeRow:
-                for c in rangeCol:
+        for r in ranges[0]:
+                for c in ranges[1]:
                     if  r != row and c != column:
                         neighbors.append(self.getCell(r,c))
         

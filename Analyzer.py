@@ -53,7 +53,7 @@ class Analyzer(object):
     def createLinearRegressionGraph(self, log ,save = False, prefixNameFile = "figure", x = None, y = None):
         #Join with the previous method
         decimal = (10**3)*1.0
-        data = self.getLinearRegressionData(False)
+        data = self.getLinearRegressionData(log)
         data = [math.trunc(x*decimal)/decimal if not math.isnan(x) else float("nan") for x in data]
 
         values = self.createValuesForRegression(log)

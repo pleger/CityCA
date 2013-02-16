@@ -44,6 +44,7 @@ if __name__ == '__main__':
         for rmax in [1,5,10,15,25]:
             def exp(self):
                 self.automaton.reinit(50,50)
+                self.simulation.enableConvergenceStop()
 
                 self.automaton.disableRandomVisitingOfCells()
                 self.automaton.enableCircularGrid()

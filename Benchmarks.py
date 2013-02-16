@@ -47,7 +47,7 @@ class Benchmarks(object):
         for exp in self.exps:
             experiment = exp[1]
             name = exp[0]
-            counter +=  1
+            counter += 1
             arr = []
             self.run = types.MethodType(experiment,self,Benchmarks)
 

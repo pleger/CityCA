@@ -21,6 +21,7 @@ class Simulation(object):
 
         self.automaton = automaton
         self.animation = animation
+        self.convergenceStop = False
 
         if self.animation:
             self.fig, self.ax = plt.subplots(figsize=(15, 5))
@@ -28,6 +29,8 @@ class Simulation(object):
             plt.xlabel("Latitude")
             plt.ylabel("Longitude")
 
+    def enableConvergenceStop(self):
+        self.convergenceStop = True
 
     def start(self, iterations):
         """This method starts the simulation
@@ -43,6 +46,10 @@ class Simulation(object):
 
         else:
             for i in range(self.iterations):
+                if self.convergenceStop and self.automaton.convergence:
+                    self.iterations = i
+                    break
+
                 self.automaton.step()
                 self.__showConsoleInf(i)
 

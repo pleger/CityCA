@@ -50,7 +50,7 @@ class Analyzer(object):
         slope, intercept, r_value, p_value, std_err = linregress(values[0], values[1])
         return [slope,intercept,r_value*r_value]
 
-    def createLinearRegressionGraph(self, log ,save = False, prefixNameFile = "figure", x = None, y = None):
+    def createLinearRegressionGraph(self, log, save = False, prefixNameFile = "figure", x = None, y = None):
         #Join with the previous method
         decimal = (10**3)*1.0
         data = self.getLinearRegressionData(log)

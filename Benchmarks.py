@@ -64,11 +64,11 @@ class Benchmarks(object):
 
                 self.analyzer.createLinearRegressionGraph(self.log, save = True, prefixNameFile = self.directory+
                                                                                                   "/imgs/figure-"+arr.__str__()+"-repeat-"+str(r))
-                innerResult = [(x + y) for x, y  in zip(innerResult, self.analyzer.getLinearRegressionData(self.log))]
+                innerResult = [(x + y) for x, y  in zip(innerResult, self.analyzer.getLinearRegressionData(self.log)+
+                                                                     [repr(self.simulation.iterations)])]
 
             innerResult = [x/self.repeat for x in innerResult]
 
-            arr.append(repr(self.simulation.iterations))
             arr += innerResult
             results.append(arr)
 
@@ -82,7 +82,7 @@ class Benchmarks(object):
 
     def generateReport(self, results):
         f = open(self.directory+"/report-"+self.now()+".txt",'w')
-        text = "Name;Z;rmin;rmax;agents;Ite;slope;intercept;r2"
+        text = "Name;Z;rmin;rmax;agents;slope;intercept;r2;inter"
         f.write(text+"\n")
 
         for result in results:

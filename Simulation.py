@@ -47,6 +47,7 @@ class Simulation(object):
         else:
             for i in range(self.iterations):
                 if self.convergenceStop and self.automaton.convergence:
+                    print "PASO!!"
                     self.iterations = i
                     break
 

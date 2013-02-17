@@ -27,12 +27,11 @@ import datetime
 import os
 
 
-
 __author__ = 'pleger'
 
 if __name__ == '__main__':
     POPULATION = 12000
-    ITERATION = 80
+    ITERATION = 50
     RMIN = 1
     RMAX = 15
 

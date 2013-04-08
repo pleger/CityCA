@@ -28,7 +28,7 @@ class Automaton(object):
         self.columns = columns
         self.rmin = 1
         self.rmax = max(rows,columns)
-
+        self.convergence = False
 
         self.agentTrack = []
         self.nextAgentTrack = []

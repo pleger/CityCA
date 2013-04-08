@@ -27,6 +27,7 @@ import datetime
 import os
 
 
+
 __author__ = 'pleger'
 
 if __name__ == '__main__':
@@ -34,21 +35,25 @@ if __name__ == '__main__':
     ITERATION = 50
     RMIN = 1
     RMAX = 15
+    SIZE_Y = 10
+    SIZE_X = 50
 
     bench = Benchmarks(Automaton(1,1))
 
     def expsPapers():
         exps = []
 
-        for rmax in [1,5,10,15,25]:
+        for rmax in [RMAX]:
+
             def exp(self):
-                self.automaton.reinit(50,50)
+
+                self.automaton.reinit(SIZE_X, SIZE_Y)
                 self.simulation.enableConvergenceStop()
 
                 self.automaton.disableRandomVisitingOfCells()
-                self.automaton.enableCircularGrid()
+                #self.automaton.enableCircularGrid()
 
-                self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(1,rmax))
+                self.automaton.createPopulation(POPULATION, Agent.randomRangeRadiumUnif(RMIN,rmax))
                 self.simulation.start(ITERATION)
 
             exps.append(["normal-1-"+str(rmax),exp])
@@ -67,12 +72,14 @@ if __name__ == '__main__':
 
     bench.enableLogScale()
     bench.setRepeat(2)
+
     initialTime = datetime.datetime.now()
     print "BEGIN BENCH"
     bench.run()
     print "END BENCH"
     finalTime = datetime.datetime.now()
     deltaTime = finalTime - initialTime
+
 
     fileNameZip = "expResult-"+bench.now()+".zip"
     os.system("zip -r "+fileNameZip+" exps")

@@ -75,7 +75,6 @@ if __name__ == '__main__':
 
 
     bench.addExps(expsPapers())
-
     bench.enableLogScale()
     bench.setRepeat(REPEAT)
     bench.setDebug(DEBUG_ITERATIONS)

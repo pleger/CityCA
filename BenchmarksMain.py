@@ -30,13 +30,18 @@ import os
 
 __author__ = 'pleger'
 
+""" EXECUTION OF THE EXPERIMENT 20000 22 537"""
+
 if __name__ == '__main__':
-    POPULATION = 12000
+    REPEAT = 1
+    DEBUG_ITERATIONS = 1
+
+    POPULATION = 20000
     ITERATION = 50
     RMIN = 1
-    RMAX = 15
-    SIZE_Y = 10
-    SIZE_X = 50
+    RMAX = 537
+    SIZE_Y = 22
+    SIZE_X = 537
 
     bench = Benchmarks(Automaton(1,1))
 
@@ -68,10 +73,12 @@ if __name__ == '__main__':
 
         return exps
 
+
     bench.addExps(expsPapers())
 
     bench.enableLogScale()
-    bench.setRepeat(2)
+    bench.setRepeat(REPEAT)
+    bench.setDebug(DEBUG_ITERATIONS)
 
     initialTime = datetime.datetime.now()
     print "BEGIN BENCH"

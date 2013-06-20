@@ -25,6 +25,9 @@ class Benchmarks(object):
         self.directory = "exps"
         self.log = False
 
+    def setDebug(self,interval):
+        self.simulation.DEBUG_ITERATIONS = interval
+
     def addExp(self,exp, name):
         self.exps.append([name,exp])
 
@@ -51,7 +54,7 @@ class Benchmarks(object):
             arr = []
             self.run = types.MethodType(experiment,self,Benchmarks)
 
-            innerResult = [0,0,0]
+            innerResult = [0,0,0,0]
             for r in range(self.repeat):
                 self.run()
 
@@ -64,8 +67,8 @@ class Benchmarks(object):
 
                 self.analyzer.createLinearRegressionGraph(self.log, save = True, prefixNameFile = self.directory+
                                                                                                   "/imgs/figure-"+arr.__str__()+"-repeat-"+str(r))
-                innerResult = [(x + y) for x, y  in zip(innerResult, self.analyzer.getLinearRegressionData(self.log)+
-                                                                     [repr(self.simulation.iterations)])]
+
+                innerResult = [(x + y) for x, y  in zip(innerResult, self.analyzer.getLinearRegressionData(self.log) + [self.simulation.iterations])]
 
             innerResult = [x/self.repeat for x in innerResult]
 
@@ -86,6 +89,7 @@ class Benchmarks(object):
         f.write(text+"\n")
 
         for result in results:
+
             text = repr(result[0])+";"+repr(result[1])+";"+repr(result[2])+";"+repr(result[3])+";"
             text += repr(result[4])+";"+repr(result[5])+";"+repr(result[6])+";"+repr(result[7])+";"+repr(result[8])
             f.write(text+"\n")
